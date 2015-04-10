@@ -244,9 +244,13 @@ good_input = False
 while good_input == False:
     infolder = get_input_folder()
 
-#create the corpus folder
-corpuspath = '/Users/sbr/data/tandemcorpus/'
-corpusfolder = make_corpus_folder(corpuspath)
+#find the corpus folder and the output folder
+with open("tandemdh.ini") as f:
+    datapaths = f.readlines()
+corpuspath = os.path.expanduser(datapaths[0])
+resultspath = os.path.expanduser(datapaths[1])
+
+corpusfolder = make_corpus_folder(corpuspath) #create a subfolder in the tandemcorpus folder
 
 #find image files in the folder and convert them to text
 outcount = 1
@@ -307,7 +311,6 @@ for file in corpfiles:
             nonstop_counts = []
 
         #write the results of nltk process to csv files
-        resultspath = '/Users/sbr/data/tandemout/'
         outfile = resultspath + 'tandem' + 'main.csv'
         if outputopen:
             write_the_rest(outfile)

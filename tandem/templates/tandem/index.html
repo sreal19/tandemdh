@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Index Template for Tandem</h1>
+<form action="{% url 'getinput' %}" method="get">
+{% if tempvariable %}
+    <p>{{ tempvariable }}</p>
+    <button type="submit" value="Submit" />Go</button>
+{% endif %}
+</form>
+</body>
+</html>

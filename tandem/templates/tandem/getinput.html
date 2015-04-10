@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Get Input Template for Tandem</h1>
+{% if inputvariable %}
+    <p>{{ inputvariable }}</p>
+{% endif %}
+<form action="{% url 'analyze'%}" method="get">
+  File: <input type="text" name="filename"
+        value="{{ request.get.filename }}"><br>
+  <button type="submit" value="analyze">Submit</button>
+  <button type="reset" value="Reset">Reset</button>
+</form>
+</body>
+</html>
