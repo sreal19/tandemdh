@@ -31,6 +31,9 @@ isize = 0
 ishape  = 0
 imeanrgb = []
 istats = []
+corpuspath = ''
+corpusfolder = ''
+
 
 
 '''***********************************************
@@ -41,13 +44,8 @@ istats = []
 
 
 def get_input_folder():         #Capture location of user's image files
-    global good_input
-    folder = raw_input('Enter the folder that contains your images: ');
-    if os.path.isdir(folder):
-        good_input = True
-        return folder
-    else:
-        print ("Folder does not exist!")
+    folder = os.getenv("HOME") + "/data/tandemin/"
+    return folder
 
 def process_image(file):            #helper function to OCR a singe file
     input_image = (Image.open(file)).convert('RGB')
@@ -55,7 +53,8 @@ def process_image(file):            #helper function to OCR a singe file
     output_data = pytesseract.image_to_string(input_image)
     return output_data
 
-def ocrit(infullpath, file):          #run Tesseract OCR engine using process_image()
+def ocrit(infullpath, file):            #run Tesseract OCR engine using process_image()
+    global corpuspath, corpusfolder
     cfile = os.path.splitext(file)[0]
     corpusfullpath = corpuspath + corpusfolder + '/' + cfile + '.txt'
     temp = open(corpusfullpath, 'w')
@@ -118,11 +117,11 @@ def make_corpus_folder(x):              #Create a folder for the OCR Output/NLTK
             count += 1
             if count > 10:
                 dirname = ''
-                print "Aborting. Failed to create output folder!"
+#                print "Aborting. Failed to create output folder!"
                 sys.exit(9999)
             else:
-                print "could not create folder ", x + dirname, "...retrying..."
-    corpuspath = x + dirname
+#                print "could not create folder ", x + dirname, "...retrying..."
+                corpuspath = x + dirname
     return dirname
 
 '''***********************************************
@@ -182,10 +181,10 @@ def build_unique_list(inlist):        #find unique words and count them
 def merge_all(folder):
     txtfiles = [ f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder,f)) ]
     wholebook = folder + '/Tandem' + 'AllText.txt'
-    print "wholebook=", wholebook
+#    print "wholebook=", wholebook
     with open(wholebook, 'w') as outfile:
         for file in txtfiles:
-            print "merging", file
+#            print "merging", file
             fullname = folder + '/'+ file
             if os.path.splitext(file)[1] == '.txt':
                 with open(fullname) as infile:
@@ -215,7 +214,7 @@ def write_the_rest(outname):                #write subsequent rows of main outpu
 
 def write_the_lists():                      #write the wordlists
     #write list of all the words
-    print "file=", file
+    global file
     words_csv = resultspath + os.path.splitext(file)[0] + '_allwords.csv'
     with open(words_csv, 'wb') as csvfile:
             wlwriter = csv.writer(csvfile, delimiter=',',
@@ -240,86 +239,84 @@ def write_the_lists():                      #write the wordlists
 ***                                              *
 ***********************************************'''
 
-#capture the folder that contains image files.
-good_input = False
-while good_input == False:
+def main():
+    global corpusfolder, corpuspath, corpus_root, english_stops, allcount, allchar, avg_word_length
+    global unique_nonstop_words, nonstops, resultspath, file, ascii_sorted, nonstop_counts
+    #capture the folder that contains image files.
     infolder = get_input_folder()
 
-#find the corpus folder and the output folder
-#with open("tandemdh.ini") as f:
-#/    datapaths = f.readlines()
-corpuspath = os.getenv("HOME") + "/data/tandemcorpus/"
-resultspath = os.getenv("HOME") + "/data/tandemout/"
+    #find the corpus folder and the output folder
+    #with open("tandemdh.ini") as f:
+    #    datapaths = f.readlines()
+    corpuspath = os.getenv("HOME") + "/data/tandemcorpus/"
+    resultspath = os.getenv("HOME") + "/data/tandemout/"
+
+    corpusfolder = make_corpus_folder(corpuspath) #create a subfolder in the tandemcorpus folder
+    #find image files in the folder and convert them to text
+    outcount = 1
+    #print "\n", "processing image files in " + infolder, "\n"
 
 
-corpusfolder = make_corpus_folder(corpuspath) #create a subfolder in the tandemcorpus folder
+    infiles = [ f for f in os.listdir(infolder) if os.path.isfile(os.path.join(infolder,f)) ]
+    for file in infiles:
+       #print ("Processing " + file)
+       infullpath = infolder + file
+       infilename = os.path.splitext(file)[0]
+       inextension = os.path.splitext(file)[1]
+       if inextension == '.tiff':
+          ocrit(infullpath, file)
+          isize, ishape, imeanrgb, istats = image_extract(infullpath)
+          outcount += 1
+       elif inextension == '.jpg':
+          ocrit(infullpath, file)
+          isize, ishape, imeanrgb, istats = image_extract(infullpath)
+          outcount += 1
+       elif inextension == '.png':
+          ocrit(infullpath, file)
+          isize, ishape, imeanrgb, istats = image_extract(infullpath)
+          outcount += 1
+       elif inextension == '.pdf':
+          jpegfile = pdfconvert(infullpath, infilename, infolder)
+          isize, ishape, imeanrgb, istats = image_extract(jpegfile)
+#         print "\n", file + " is not an image file. Skipped... "
 
-#find image files in the folder and convert them to text
-outcount = 1
-print "\n", "processing image files in " + infolder, "\n"
+    fullcorpuspath = corpuspath + corpusfolder
+    merge_all(fullcorpuspath)        #merge all the text files together
 
+    ''' Now all image files have been converted. Analyze them with nltk'''
+    #print "\n", "starting nltk process ", "\n"
 
-infiles = [ f for f in os.listdir(infolder) if os.path.isfile(os.path.join(infolder,f)) ]
-for file in infiles:
-    print ("Processing " + file)
-    infullpath = infolder + file
-    infilename = os.path.splitext(file)[0]
-    inextension = os.path.splitext(file)[1]
-    if inextension == '.tiff':
-        ocrit(infullpath, file)
-        isize, ishape, imeanrgb, istats = image_extract(infullpath)
-        outcount += 1
-    elif inextension == '.jpg':
-        ocrit(infullpath, file)
-        isize, ishape, imeanrgb, istats = image_extract(infullpath)
-        outcount += 1
-    elif inextension == '.png':
-        ocrit(infullpath, file)
-        isize, ishape, imeanrgb, istats = image_extract(infullpath)
-        outcount += 1
-    elif inextension == '.pdf':
-        jpegfile = pdfconvert(infullpath, infilename, infolder)
-        isize, ishape, imeanrgb, istats = image_extract(jpegfile)
-    else:
-       print "\n", file + " is not an image file. Skipped... "
+    #container = nltk.data.load('corpora/ocrout_corpus2/BookScanCenter_9.txt',format='raw')
+    #tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    english_stops = stopwords.words('english')
+    corpus_root = fullcorpuspath
 
-fullcorpuspath = corpuspath + corpusfolder
-merge_all(fullcorpuspath)        #merge all the text files together
+    corpfiles = [ f for f in os.listdir(corpus_root) if os.path.isfile(os.path.join(corpus_root,f)) ]
+    for file in corpfiles:
+        if os.path.splitext(file)[1] == '.txt':
+            allwords, nonstops, allcount, allchar = tokenize_file(file)
+            if allcount == 0:
+                avg_word_length = 'na'
+            else:
+                avg_word_length = round(float(allchar)/float(allcount), 2)
+            ascii_sorted = []
+            ascii_sorted = build_sorted_ascii(allwords)
+            nonstop_sorted = []
+            nonstop_sorted = build_sorted_ascii(nonstops)
+            if len(nonstop_sorted) > 0:
+                unique_nonstop_words, nonstop_counts  = build_unique_list(nonstop_sorted)
+            else:
+                unique_nonstop_words = []
+                nonstop_counts = []
 
-''' Now all image files have been converted. Analyze them with nltk'''
-print "\n", "starting nltk process ", "\n"
+            #write the results of nltk process to csv files
+            outfile = resultspath + 'tandem' + 'main.csv'
+            if outputopen:
+                write_the_rest(outfile)
+            else:
+                write_first_row(outfile)
 
-#container = nltk.data.load('corpora/ocrout_corpus2/BookScanCenter_9.txt',format='raw')
-#tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-english_stops = stopwords.words('english')
-corpus_root = fullcorpuspath
-
-corpfiles = [ f for f in os.listdir(corpus_root) if os.path.isfile(os.path.join(corpus_root,f)) ]
-for file in corpfiles:
-    if os.path.splitext(file)[1] == '.txt':
-        allwords, nonstops, allcount, allchar = tokenize_file(file)
-        if allcount == 0:
-            avg_word_length = 'na'
-        else:
-            avg_word_length = round(float(allchar)/float(allcount), 2)
-        ascii_sorted = []
-        ascii_sorted = build_sorted_ascii(allwords)
-        nonstop_sorted = []
-        nonstop_sorted = build_sorted_ascii(nonstops)
-        if len(nonstop_sorted) > 0:
-            unique_nonstop_words, nonstop_counts  = build_unique_list(nonstop_sorted)
-        else:
-            unique_nonstop_words = []
-            nonstop_counts = []
-
-        #write the results of nltk process to csv files
-        outfile = resultspath + 'tandem' + 'main.csv'
-        if outputopen:
-            write_the_rest(outfile)
-        else:
-            write_first_row(outfile)
-
-
+main()
 
 
 
