@@ -245,9 +245,7 @@ def main():
     #capture the folder that contains image files.
     infolder = get_input_folder()
 
-    #find the corpus folder and the output folder
-    #with open("tandemdh.ini") as f:
-    #    datapaths = f.readlines()
+    #set the corpus folder and the output folder
     corpuspath = os.getenv("HOME") + "/data/tandemcorpus/"
     resultspath = os.getenv("HOME") + "/data/tandemout/"
 
