@@ -5,6 +5,12 @@
     <title></title>
 </head>
 <body>
-
+<h2>Analyze Page</h2>
+{% if analyzevariable %}
+    <p>{{ analyzevariable }}</p>
+{% endif %}
+<form action="{% url 'results'%}" method="get">
+Press Done to see the results<br>
+<button type="submit" value="results">Done</button>
 </body>
 </html>

@@ -31,6 +31,11 @@ isize = 0
 ishape  = 0
 imeanrgb = []
 istats = []
+isizelist = []
+ishapelist = []
+imeanrgblist = []
+istatslist = []
+
 
 
 '''***********************************************
@@ -104,6 +109,10 @@ def image_extract(infullpath):
     i_means, i_stds = cv2.meanStdDev(image_input)
 
     image_stats = np.concatenate([i_means,i_stds]).flatten()
+    x = 0
+    for i in image_stats:
+        print "x=",x,"stat=",image_stats[x]
+        x += 1
     return image_size, image_shape, image_meanrgb, image_stats
 
 def make_corpus_folder(x):              #Create a folder for the OCR Output/NLTK input
@@ -191,31 +200,32 @@ def merge_all(folder):
                 with open(fullname) as infile:
                     outfile.write(infile.read())
 
-def write_first_row(outname):               #write the first row of the main output file
+def write_first_row(outname, imgsize, imgshape, imgmeanrgb, imgstats):               #write the first row of the main output file
     global file, resultspath, outputopen, goflag
+    print "stats=", imgstats
     with open(outname, 'wb') as csvfile:
         tandemwriter = csv.writer(csvfile, delimiter=',',
                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
         tandemwriter.writerow(['File','Total Word Count', 'Total Characters', 'Average Word Length',
-                   'Unique Word Count', 'Count without Stopword', 'Image Size', 'Image Shape',
-                   'Image Mean RGB', 'Image Stats'])
+                   'Unique Word Count', 'Count wout Stopword', 'Image Size','Image Shape 1', 'Image Shape 2',
+                   'Image Shape 3', 'Image Mean R', 'Image Mean G', 'Image Mean B', 'Image Mean 4','Image Stats'])
         tandemwriter.writerow([file]+[allcount]+[allchar]+[avg_word_length]+[len(unique_nonstop_words)]+
-                      [len(nonstops)]+[isize]+[ishape]+[imeanrgb]+[istats])
+                      [len(nonstops)]+[imgsize]+[imgshape]+[imgmeanrgb]+[imgstats])
         outputopen = True
         write_the_lists()
 
-def write_the_rest(outname):                #write subsequent rows of main output file
+def write_the_rest(outname, imgsize, imgshape, imgmeanrgb, imgstats):                #write subsequent rows of main output file
     global file
+    print "stats=", imgstats
     with open(outname, 'a') as csvfile:
             tandemwriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
             tandemwriter.writerow([file]+[allcount]+ [allchar]+[avg_word_length]+[len(unique_nonstop_words)]+
-                [len(nonstops)]+[isize]+[ishape]+[imeanrgb]+[istats])
+                [len(nonstops)]+[imgsize]+[imgshape]+[imgmeanrgb]+[imgstats])
     write_the_lists()
 
 def write_the_lists():                      #write the wordlists
     #write list of all the words
-    print "file=", file
     words_csv = resultspath + os.path.splitext(file)[0] + '_allwords.csv'
     with open(words_csv, 'wb') as csvfile:
             wlwriter = csv.writer(csvfile, delimiter=',',
@@ -280,10 +290,13 @@ for file in infiles:
         isize, ishape, imeanrgb, istats = image_extract(jpegfile)
     else:
        print "\n", file + " is not an image file. Skipped... "
+    isizelist.append(isize)
+    ishapelist.append(ishape)
+    imeanrgblist.append(imeanrgb)
+    istatslist.append(istats)
 
 fullcorpuspath = corpuspath + corpusfolder
 merge_all(fullcorpuspath)        #merge all the text files together
-
 ''' Now all image files have been converted. Analyze them with nltk'''
 print "\n", "starting nltk process ", "\n"
 
@@ -293,6 +306,7 @@ english_stops = stopwords.words('english')
 corpus_root = fullcorpuspath
 
 corpfiles = [ f for f in os.listdir(corpus_root) if os.path.isfile(os.path.join(corpus_root,f)) ]
+count = 0
 for file in corpfiles:
     if os.path.splitext(file)[1] == '.txt':
         allwords, nonstops, allcount, allchar = tokenize_file(file)
@@ -309,13 +323,13 @@ for file in corpfiles:
         else:
             unique_nonstop_words = []
             nonstop_counts = []
-
         #write the results of nltk process to csv files
         outfile = resultspath + 'tandem' + 'main.csv'
         if outputopen:
-            write_the_rest(outfile)
+            write_the_rest(outfile, isizelist[count], ishapelist[count], imeanrgblist[count], istatslist[count])
         else:
-            write_first_row(outfile)
+            write_first_row(outfile, isizelist[count], ishapelist[count], imeanrgblist[count], istatslist[count])
+        count += 1
 
 
 

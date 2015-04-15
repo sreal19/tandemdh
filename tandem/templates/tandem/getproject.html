@@ -6,11 +6,13 @@
 </head>
 <body>
 
-<form action="/project/" method="post">
+<form action="/getproject/" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="text" name="project_name" id="" />
-    <input type="text" name="input_folder" id="" />
+    <label>Projct: </label>
+    <input type="text" name="project_name" id="" /><br>
+    <label>Folder: </label>
+    <input type="text" name="input_folder" id="" /><br>
     <input type="submit" value="Submit" />
 </form>
 

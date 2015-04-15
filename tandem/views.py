@@ -5,10 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from .forms import ProjectForm
 from tandem.models import Project
-from tandem import engine
+#from tandem import engine
 
 def index(request):
-    tempvariable = "this is cool"
+    tempvariable = "Press Go to Begin"
     template = loader.get_template('tandem/index.html')
     context = {'tempvariable': tempvariable}
     return render(request, 'tandem/index.html', context)
@@ -17,21 +17,20 @@ def getinput(request):
     inputvariable = "What file do you want to upload"
     template = loader.get_template('tandem/getinput.html')
     context = {'inputvariable': inputvariable}
-    return render(request, 'tandem/getproject.html', context)
+    return render(request, 'tandem/getinput.html', context)
 
 def analyze(request):
-    p = 'filename'
-    context = p
+    analyzevariable = "analyze"
+    context = {'analyzevariable': analyzevariable}
     return render(request, 'tandem/analyze.html', context)
-    #return HttpResponse("You're on the tandem analyze page")
 
 def results(request):
     return HttpResponse("You're on the tandem results page")
 
-def runengine(request):
-    engine.main()
-    return HttpResponse("Tandem as completed processing your files!")
-
+#def runengine(request):
+#    engine.main()
+#    return HttpResponse("Tandem as completed processing your files!")
+'''
 def getproject(request):
     #if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -49,3 +48,4 @@ def getproject(request):
     else:
         form = ProjectForm()
     return render(request, 'getproject.html', {'form':form})
+'''

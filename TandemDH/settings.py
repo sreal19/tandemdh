@@ -68,7 +68,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR,'/Users/sbr/data/tandem.sqlite3'),
     }
 }
-print DATABASES
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
