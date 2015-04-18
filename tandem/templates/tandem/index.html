@@ -6,7 +6,9 @@
 </head>
 <body>
 <h1>Index Template for Tandem</h1>
-<form action="{% url 'getinput' %}" method="get">
+<p>For this version to work, edit settings.py MEDIA_ROOT and to point
+    to a valid folder on your computer</p>
+<form action="{% url 'upload' %}" method="get">
 {% if tempvariable %}
     <p>{{ tempvariable }}</p>
     <button type="submit" value="Submit" />Go</button>

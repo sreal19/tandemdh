@@ -15,19 +15,13 @@ class Project(models.Model):
         return self.project_name
 
 
-    def was_created_recently(self):
-        return self.create_date >= timezone.now() - datetime.timedelta(days=1)
-
-    was_created_recently.admin_order_field = 'create_date'
-    was_created_recently.boolean = True
-    was_created_recently.short_description = 'Created recently?'
-
-class Infiles(models.Model):
-    project_name = models.ForeignKey(Project)
-    filename = models.CharField(max_length=200)
+class Tandemfile(models.Model):
+    tanfilename = models.CharField(max_length=200)
+    tanfiletype = models.CharField(max_length=10)
+    tanfile = models.FileField(upload_to='/tandemin/')
 
     def __unicode__(self):
-        return self.filename
+        return self.tanfilename
 
 
 

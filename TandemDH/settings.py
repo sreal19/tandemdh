@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-TANDEM_DIR = "Users/sbr/data/tandem.sqlite3"
+TANDEM_DIR = "Users/sbr/data/tandem2.sqlite3"
 
 
 # Quick-start development settings - unsuitable for production
@@ -65,7 +65,7 @@ WSGI_APPLICATION = 'TandemDH.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'/Users/sbr/data/tandem.sqlite3'),
+        'NAME': os.path.join(BASE_DIR,'/Users/sbr/data/tandem2.sqlite3'),
     }
 }
 # Internationalization
@@ -86,6 +86,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = '/Users/sbr/data/tandemin/'
+MEDIA_URL = '/tandemin/'
+
 
 TEMPLATES = [
     {

@@ -148,7 +148,7 @@ def tokenize_file(file):            #tokenize input file, count words, character
     word_count = 0
     wordlist = []
 
-    item_count = 0
+    print file
     reader = WordListCorpusReader(corpus_root, file)
     chunks = reader.words()
 
