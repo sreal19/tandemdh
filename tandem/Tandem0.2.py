@@ -6,6 +6,7 @@ Follow CVDH4 and SBReal on Twitter and Github
 DH Praxis 14-15 CUNY Graduate Center
 '''
 import sys
+import datetime
 import pytesseract
 from PIL import Image
 import os
@@ -76,18 +77,14 @@ def pdfconvert(infullpath, file, infolder, pages=None):         #Handle PDF
     manager = PDFResourceManager()
     converter = TextConverter(manager, output, laparams=LAParams())
     interpreter = PDFPageInterpreter(manager, converter)
-
     pdffile = open(infullpath, 'rb')
    # print "pdffile=", pdffile
     for page in PDFPage.get_pages(pdffile, pagenums):
         interpreter.process_page(page)
     pdffile.close()
     converter.close()
-
     txtfilename = file
-
     jpgfile = infolder + str(txtfilename) + '.jpg'
-
     txtfile = corpuspath + corpusfolder + '/' + txtfilename + '.txt'
 
     text = output.getvalue()
@@ -116,7 +113,7 @@ def image_extract(infullpath):
     return image_size, image_shape, image_meanrgb, image_stats
 
 def make_corpus_folder(x):              #Create a folder for the OCR Output/NLTK input
-    dirname = 'ocrout_corpus'
+    dirname = 'ocrout_corpus' + str(datetime.datetime.now())
     count = 1
     while True:
         try:
