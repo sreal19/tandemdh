@@ -304,6 +304,7 @@ corpus_root = fullcorpuspath
 
 corpfiles = [ f for f in os.listdir(corpus_root) if os.path.isfile(os.path.join(corpus_root,f)) ]
 count = 0
+print "list?", corpfiles
 for file in corpfiles:
     if os.path.splitext(file)[1] == '.txt':
         allwords, nonstops, allcount, allchar = tokenize_file(file)

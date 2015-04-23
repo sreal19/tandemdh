@@ -4,20 +4,18 @@
 <html>
 <head lang="en">
     <style>
-        body { color: red;
-        }
     </style>
     <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
-<h1>Index Template for Tandem</h1>
-<p>For this version to work, edit settings.py MEDIA_ROOT and to point
-    to a valid folder on your computer</p>
-<form action="{% url 'upload' %}" method="get">
+<h1>Welcome to Tandem</h1>
+<p>We will walk you through the process of giving project a name and uploading the <br>
+    files that you want to analyze<br>
+    Press Go to get started</p>
+<form action="{% url 'project' %}" method="get">
 {% if tempvariable %}
-    <p>{{ tempvariable }}</p>
-    <button type="submit" value="Submit" />Go</button>
+    <button type="submit" value="Submit" />   Go   </button>
 {% endif %}
 </form>
 </body>

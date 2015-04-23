@@ -2,19 +2,17 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Django File Upload</title>
+        <title>Tandem Upload</title>
     </head>
     <body>
-        <h1>Upload a file into TANDEM</h1>
-        <p>Press Choose File to open a window for selecting your file</p>
+        <h1>Upload your files into TANDEM</h1>
+        <p>Press Choose Files to open a window for selecting your file</p>
         <!-- Upload form. Note enctype attribute! -->
         <form action="/tandem/upload/" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <table>
                 {{ form.as_table }}
             </table>
-
-            </p>
             <p><input type="submit" value="Submit" id="Save" /></p>
         </form>
     </body>

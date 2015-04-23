@@ -1,17 +1,14 @@
 
 from django.db import models
-from django.utils import timezone
-import datetime
-from django import forms
 
 class Project(models.Model):
-    project_name = models.CharField(max_length=200)
-    create_date = models.DateTimeField('date created')
-    input_folder = models.CharField(max_length=200)
-    dest_folder = models.CharField(max_length=200, default='data/tandemout')
-    text_folder = models.CharField(max_length=200, default='data/tandemcorpus')
+    project_name = models.CharField(max_length=200, verbose_name="project:")
+    create_date = models.DateTimeField(auto_now_add=True, blank=True)
+    input_folder = models.CharField(max_length=200, blank=True)
+    dest_folder = models.CharField(max_length=200, blank=True)
+    text_folder = models.CharField(max_length=200, blank=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.project_name
 
 

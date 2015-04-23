@@ -89,11 +89,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
-print STATICFILES_DIRS
-print STATIC_URL
 
-MEDIA_ROOT = '/Users/sbr/data/tandemin/'
-MEDIA_URL = '/tandemin/'
+MEDIA_ROOT = '/Users/sbr/data/'
+MEDIA_URL = '/data/'
 
 TEMPLATES = [
     {

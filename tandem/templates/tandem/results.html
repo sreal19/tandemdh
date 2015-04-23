@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>"Results</title>
+</head>
+<body>
+<h2>Results Page</h2>
+<p>Your files have been analyzed
+    Results files are displayed below <br>
+    Press Download to Save the output on your computer<br>
+</p>
+{% if resultsvariable %}
+    <ul>
+    {% for item in resultsvariable %}
+        {{ item }} <br>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="{% url 'results'%}" method="get">
+
+<button type="submit" value="results">Download</button>
+</body>
+</html>
