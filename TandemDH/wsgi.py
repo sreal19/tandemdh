@@ -12,9 +12,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TandemDH.settings")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
-<<<<<<< Updated upstream
-#sys.path.append('/usr/lib/python2.7/site-packages')
-=======
+
+'''
 sys.path.append('/usr/lib/python2.7/site-packages/setuptools-15.0-py2.7.egg')
 sys.path.append('/usr/lib/python2.7/dist-packages')
 sys.path.append('/usr/lib/python2.7/site-packages/numpy-1.9.2-py2.7-linux-x86_64.egg')
@@ -25,4 +24,4 @@ sys.path.append('/usr/lib/python2.7/lib-tk')
 sys.path.append('/usr/lib/python2.7/lib-old')
 sys.path.append('/usr/lib/python2.7/lib-dynload')
 sys.path.append('/usr/lib/python2.7/site-packages')
->>>>>>> Stashed changes
+'''
