@@ -1,9 +1,9 @@
 __author__ = 'sbr'
-
 import os
+import sys
 import csv
-import cv2
 import numpy as np
+import cv2
 from nltk.corpus import stopwords
 from nltk.corpus.reader import WordListCorpusReader
 from nltk.tokenize import RegexpTokenizer

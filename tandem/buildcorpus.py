@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 __author__ = 'sbr'
 import os
+import sys
 import shutil
 from cStringIO import StringIO
 from pdfminer.converter import TextConverter
@@ -8,8 +9,8 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
-import pytesseract
 from PIL import Image
+import pytesseract
 
 
 
