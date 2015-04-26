@@ -10,10 +10,11 @@ from django.views.static import serve
 import time, tempfile, zipfile, zlib
 import os, shutil
 
+
 from .forms import MyUploadForm, ProjectForm
 
-import buildcorpus
-import calculate
+import buildcorpus, calculate
+from TandemDH import settings
 from tandem.models import Project
 
 time = time.strftime("%j:%H:%M:%S")
@@ -22,7 +23,8 @@ outstorage = FileSystemStorage()
 inputhome = outstorage.location + '/tandemin/' + timestamp
 corpushome = outstorage.location + '/tandemcorpus/' + timestamp
 resultshome = outstorage.location + '/tandemout/' + timestamp
-
+ziphome = settings.MEDIA_ROOT
+print ziphome
 def handle_uploaded_file(f):
     global inputhome
     inputpath = inputhome
@@ -105,8 +107,8 @@ def download(request):
   #  zipoutput(resultsfolder, tandemout)
   #  tandemout.close()
 
-    shutil.make_archive('./tandem', 'zip', resultsfolder)
-    filepath = "./tandem.zip"
+    shutil.make_archive(ziphome + '/tandem', 'zip', resultsfolder)
+    filepath = ziphome + "/tandem.zip"
     return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 
 
