@@ -1,17 +1,17 @@
 from django.shortcuts import get_object_or_404, render
-#from django.views.generic import CreateView
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict, HttpRequest
+from django.core.servers.basehttp import FileWrapper
 from django.template import RequestContext, loader
 from django.core.files.storage import FileSystemStorage
+from django.core.files import File
+from django.views.static import serve
 #from django.shortcuts import render_to_response
-import time
-import os
+import time, tempfile, zipfile, zlib
+import os, shutil
 
 from .forms import MyUploadForm, ProjectForm
-from django.core.files import File
-from django.core.files.uploadhandler import load_handler
-from django.core.files.uploadedfile import UploadedFile
+
 import buildcorpus
 import calculate
 from tandem.models import Project
@@ -39,6 +39,13 @@ def build_the_corpus():
     global timestamp, inputhome, corpushome, resultshome
     processlist = buildcorpus.analysis_setup(inputhome, corpushome, resultshome)
     return processlist
+
+def zipoutput(path, zip):
+    for root, dirs, files in os.walk(path):
+        print root
+        for file in files:
+            print "zipping"
+            zip.write(os.path.join(root, file))
 
 def upload(request):
     if request.method == 'POST':
@@ -91,3 +98,19 @@ def results(request):
     context = {'resultsvariable': resultsvariable}
     return render(request, 'tandem/results.html', context)
 
+def download(request):
+    global resultshome
+    resultsfolder = resultshome
+  #  tandemout = zipfile.ZipFile("/Users/sbr/data/tandem.zip", 'w', zipfile.ZIP_DEFLATED)
+  #  zipoutput(resultsfolder, tandemout)
+  #  tandemout.close()
+
+    shutil.make_archive('/Users/sbr/data/tandemsh', 'zip', resultsfolder)
+    filepath = "/Users/sbr/data/tandemsh.zip"
+    return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
+
+    print "got here"
+    downloadvar = "Success!"
+    context = {'downloadvar': downloadvar}
+    return render(request, 'tandem/download.html', context)
+    #return response

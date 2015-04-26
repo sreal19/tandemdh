@@ -15,10 +15,12 @@
     {% for item in resultsvariable %}
         {{ item }} <br>
     {% endfor %}
-</ul>
-{% endif %}
-<form action="{% url 'results'%}" method="get">
+    </ul>
 
-<button type="submit" value="results">Download</button>
+{% endif %}
+<form action="{% url 'download'%}" method="get">
+
+<button type="submit" value="download">Download</button>
+
 </body>
 </html>

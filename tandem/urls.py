@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'analyze/$',views.analyze, name='analyze'),
     url(r'results/$',views.results, name='results'),
     url(r'upload/$',views.upload, name='upload'),
-    url(r'project/$',views.project, name='project')
+    url(r'project/$',views.project, name='project'),
+    url(r'download/$',views.download, name='download')
 )
