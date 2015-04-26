@@ -76,7 +76,7 @@ def merge_all(folder):
 
 def write_first_row(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb, imgstats, txtdat):               #write the first row of the main output file
     global outputopen, goflag
-    print "stats=", imgstats
+    #print "stats=", imgstats
     with open(outname, 'wb') as csvfile:
         tandemwriter = csv.writer(csvfile, delimiter=',',
                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -88,11 +88,13 @@ def write_first_row(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb
         outputopen = True
         write_the_lists(outfolder, filename0, txtdat)
 
-def write_the_rest(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb, imgstats, txtdat):                #write subsequent rows of main output file
+def write_the_rest(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb, imgstats, txtdat):
+    #write subsequent rows of main output file
+
     with open(outname, 'a') as csvfile:
             tandemwriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            tandemwriter.writerow([file]+[txtdat[0]]+ [txtdat[1]]+[txtdat[2]]+[txtdat[3]]+
+            tandemwriter.writerow([filename0]+[txtdat[0]]+ [txtdat[1]]+[txtdat[2]]+[txtdat[3]]+
                     [txtdat[4]]+[imgsize]+[imgshape]+[imgmeanrgb]+[imgstats])
     write_the_lists(outfolder, filename0, txtdat)
 
@@ -100,7 +102,7 @@ def write_the_last(outfolder, outname, filename0, txtdat):                #write
     with open(outname, 'a') as csvfile:
             tandemwriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            tandemwriter.writerow([file]+[txtdat[0]]+ [txtdat[1]]+[txtdat[2]]+[txtdat[3]]+
+            tandemwriter.writerow([filename0]+[txtdat[0]]+ [txtdat[1]]+[txtdat[2]]+[txtdat[3]]+
                     [txtdat[4]])
     write_the_lists(outfolder, filename0, txtdat)
 
@@ -126,6 +128,7 @@ def write_the_lists(folder, filename, txtdat):
                 i += 1
 
 def mainout(corpusfolder, outfolder):
+    global outputopen
     outputopen = False
     isize = 0
     ishape  = 0
@@ -151,10 +154,10 @@ def mainout(corpusfolder, outfolder):
             ishapelist.append(ishape)
             imeanrgblist.append(imeanrgb)
             istatslist.append(istats)
-    nltkdata = []
     nltkfiles = [ g for g in os.listdir(corpusfolder) if os.path.isfile(os.path.join(corpusfolder,g)) ]
     count = 0
     for file in nltkfiles:
+        nltkdata = []
         if os.path.splitext(file)[1] == '.txt':
             namestring = os.path.splitext(file)[0]
             allwords, nonstops, allcount, allchar = tokenize_file(file, corpusfolder, english_stops)
@@ -179,15 +182,18 @@ def mainout(corpusfolder, outfolder):
             nltkdata.append(unique_nonstop_words)
             nltkdata.append(ascii_sorted)
             if outputopen:
+                print "writing the rest"
                 if namestring <> "TandemAllText":
                     write_the_rest(outfolder, outfile, namestring, isizelist[count], ishapelist[count],
                         imeanrgblist[count], istatslist[count], nltkdata)
                 else:
-                    write_the_last()
+                    write_the_last(outfolder, outfile, namestring, nltkdata)
             else:
+                print "count=", count
                 write_first_row(outfolder, outfile, namestring, isizelist[count], ishapelist[count],
                     imeanrgblist[count], istatslist[count], nltkdata)
-            if namestring == "TandemAllText":
+            print namestring
+            if namestring <> "TandemAllText":
                 count += 1
 
 
