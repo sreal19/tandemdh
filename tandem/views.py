@@ -105,8 +105,8 @@ def download(request):
   #  zipoutput(resultsfolder, tandemout)
   #  tandemout.close()
 
-    shutil.make_archive('tandem', 'zip', resultsfolder)
-    filepath = "./tandem.zip"
+    shutil.make_archive('~/tandem', 'zip', resultsfolder)
+    filepath = "~/tandem.zip"
     return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 
 
