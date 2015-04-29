@@ -99,18 +99,21 @@ def pdfconvert(infullpath, file, infolder, pages=None):         #Handle PDF
     return jpgfile
 
 def image_extract(infullpath):
+    image_stats_clean = []
     image_input = cv2.imread(infullpath)
     image_size = image_input.size
     image_shape = image_input.shape
+    shapelist = list(image_shape)
     image_meanrgb = cv2.mean(image_input)
     i_means, i_stds = cv2.meanStdDev(image_input)
 
     image_stats = np.concatenate([i_means,i_stds]).flatten()
     x = 0
     for i in image_stats:
-        print "x=",x,"stat=",image_stats[x]
+        image_stats_clean.append(float(image_stats[x]))
         x += 1
-    return image_size, image_shape, image_meanrgb, image_stats
+
+    return image_size, shapelist, image_meanrgb, image_stats_clean
 
 def make_corpus_folder(x):              #Create a folder for the OCR Output/NLTK input
     dirname = 'ocrout_corpus' + str(datetime.datetime.now())
@@ -145,7 +148,6 @@ def tokenize_file(file):            #tokenize input file, count words, character
     word_count = 0
     wordlist = []
 
-    print file
     reader = WordListCorpusReader(corpus_root, file)
     chunks = reader.words()
 
@@ -188,10 +190,8 @@ def build_unique_list(inlist):        #find unique words and count them
 def merge_all(folder):
     txtfiles = [ f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder,f)) ]
     wholebook = folder + '/Tandem' + 'AllText.txt'
-    print "wholebook=", wholebook
     with open(wholebook, 'w') as outfile:
         for file in txtfiles:
-            print "merging", file
             fullname = folder + '/'+ file
             if os.path.splitext(file)[1] == '.txt':
                 with open(fullname) as infile:
@@ -199,7 +199,9 @@ def merge_all(folder):
 
 def write_first_row(outname, imgsize, imgshape, imgmeanrgb, imgstats):               #write the first row of the main output file
     global file, resultspath, outputopen, goflag
-    print "stats=", imgstats
+    print imgshape
+    print type(imgshape)
+
     with open(outname, 'wb') as csvfile:
         tandemwriter = csv.writer(csvfile, delimiter=',',
                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -213,7 +215,8 @@ def write_first_row(outname, imgsize, imgshape, imgmeanrgb, imgstats):          
 
 def write_the_rest(outname, imgsize, imgshape, imgmeanrgb, imgstats):                #write subsequent rows of main output file
     global file
-    print "stats=", imgstats
+    print imgshape
+    print type(imgshape)
     with open(outname, 'a') as csvfile:
             tandemwriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -285,8 +288,6 @@ for file in infiles:
     elif inextension == '.pdf':
         jpegfile = pdfconvert(infullpath, infilename, infolder)
         isize, ishape, imeanrgb, istats = image_extract(jpegfile)
-    else:
-       print "\n", file + " is not an image file. Skipped... "
     isizelist.append(isize)
     ishapelist.append(ishape)
     imeanrgblist.append(imeanrgb)
@@ -304,7 +305,7 @@ corpus_root = fullcorpuspath
 
 corpfiles = [ f for f in os.listdir(corpus_root) if os.path.isfile(os.path.join(corpus_root,f)) ]
 count = 0
-print "list?", corpfiles
+
 for file in corpfiles:
     if os.path.splitext(file)[1] == '.txt':
         allwords, nonstops, allcount, allchar = tokenize_file(file)

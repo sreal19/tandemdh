@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'tandem/style.css'%}" />
+
+<html>
+<head lang="en">
+    <style>
+    </style>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Welcome to Tandem</h1>
+<p>We will walk you through the process of giving project a name and uploading the <br>
+    files that you want to analyze<br>
+    Press Go to get started</p>
+<form action="{% url 'project' %}" method="get">
+{% if tempvariable %}
+    <button type="submit" value="Submit" />   Go   </button>
+{% endif %}
+</form>
+</body>
+</html>

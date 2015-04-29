@@ -9,6 +9,7 @@ from nltk.corpus.reader import WordListCorpusReader
 from nltk.tokenize import RegexpTokenizer
 
 def image_extract(image):
+
     image_input = cv2.imread(image)
     image_size = image_input.size
     image_shape = image_input.shape
@@ -16,7 +17,12 @@ def image_extract(image):
     i_means, i_stds = cv2.meanStdDev(image_input)
 
     image_stats = np.concatenate([i_means,i_stds]).flatten()
-    return image_size, image_shape, image_meanrgb, image_stats
+    x = 0
+    image_stats_clean = []
+    for i in image_stats:
+        image_stats_clean.append(float(image_stats[x]))
+        x += 1
+    return image_size, image_shape, image_meanrgb, image_stats_clean
 
 def tokenize_file(file, corpus_root, english_stops):            #tokenize input file, count words, characters, remove stopwords
     tokenizer = RegexpTokenizer(r'\w+')
@@ -81,10 +87,13 @@ def write_first_row(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb
         tandemwriter = csv.writer(csvfile, delimiter=',',
                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
         tandemwriter.writerow(['File','Total Word Count', 'Total Characters', 'Average Word Length',
-                   'Unique Word Count', 'Count wout Stopword', 'Image Size','Image Shape 1', 'Image Shape 2',
-                   'Image Shape 3', 'Image Mean R', 'Image Mean G', 'Image Mean B', 'Image Mean 4','Image Stats'])
+                   'Unique Word Count', 'Count wout Stopword', 'Image Size','Image Width', 'Image Height',
+                   'Image Shape 3', 'Image Mean R', 'Image Mean G', 'Image Mean B', 'Mean Color Channel','Std Dev Mean R',
+                    'Std Dev Mean G', 'Std Dev Mean B'])
         tandemwriter.writerow([filename0]+[txtdat[0]]+[txtdat[1]]+[txtdat[2]]+[txtdat[3]]+
-                      [txtdat[4]]+[imgsize]+[imgshape]+[imgmeanrgb]+[imgstats])
+                      [txtdat[4]]+[imgsize]+[imgshape[0]]+[imgshape[1]]+[imgshape[2]]+[imgmeanrgb[0]]+
+                        [imgmeanrgb[0]]+[imgmeanrgb[1]]+[imgmeanrgb[2]]+
+                        [imgstats[3]]+[imgstats[4]]+[imgstats[5]])
         outputopen = True
         write_the_lists(outfolder, filename0, txtdat)
 
@@ -95,7 +104,9 @@ def write_the_rest(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb,
             tandemwriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
             tandemwriter.writerow([filename0]+[txtdat[0]]+ [txtdat[1]]+[txtdat[2]]+[txtdat[3]]+
-                    [txtdat[4]]+[imgsize]+[imgshape]+[imgmeanrgb]+[imgstats])
+                    [txtdat[4]]+[imgsize]+[imgshape[0]]+[imgshape[1]]+[imgshape[2]]+
+                            [imgmeanrgb[0]]+[imgmeanrgb[1]]+[imgmeanrgb[2]]+[imgmeanrgb[3]]+
+                            [imgstats[3]]+[imgstats[4]]+[imgstats[5]])
     write_the_lists(outfolder, filename0, txtdat)
 
 def write_the_last(outfolder, outname, filename0, txtdat):                #write subsequent rows of main output file

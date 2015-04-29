@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TANDEM</title>
+ 
+<!-- Bootstrap --><!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+ 
+<!-- Optional theme -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-theme.min.css">
+
+<html>
+  <head>
+     <title>TANDEM | Image & Text Analysis Environment</title>
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}TANDEMstyle.css">
+     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+     <nav>
+      <div class="nav-wrapper">
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URLpython }}images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="documentation.html">Best Practices</a></li>
+		  <li><a href="sample.html">Sample Data</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="team.html">Contact</a></li>
+         </ul>
+      </div>
+     </nav>
+
+     <div id="header">
+         <img class="logo" src="http://tandem.commons.gc.cuny.edu/files/2015/02/TANDEM-bike-logo.png" center>
+     </div>
+     
+     <div id="container">
+      <div id="content">
+	  <h1>About & FAQ</h1>
+			<ul>
+			<li><a href="#about" class="body">About the app</a></li>
+			<li><a href="#FAQ" class="body">Frequently Asked Questions</a>
+				<ul>
+					<li><a href="#Why" class="body">Why use TANDEM?</a></li>
+					<li><a href="#built" class="body">How was TANDEM built?</a></li>
+					<li><a href="#components" class="body">What are the components of TANDEM?</a></li>
+					<li><a href="#definitions" class="body">I've downloaded my data output. What does each column in the CSV represent?</a></li>
+				</ul>
+			</li>
+				<li><a href="#readings" class="body">Further Readings</a></li>
+			</ul>
+		<h2 id="about">About the app</h2>
+        <p>TANDEM is an environment that generates quantitative image and text data from files submitted by the user. This output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
+		<p>TANDEM compiles open source technologies, including Tesseract OCR, image feature extraction, and natural light language processing packages to generate data output as CSV. The final output also contains a downloadable folder of the OCR text, word lists, and more.</p>
+		<p>To explore the functionality of TANDEM, our team employed a test corpus of Mother Goose picture books in the public domain. To view the source and results from the initial corpus, see: <a href="#" class="body" target="_blank">Sample Data.</a></p>
+		<p>TANDEM intends to provide scholars a singular source for quantitative insight into picture books, comics, illuminated manuscripts, and other sources that might contain both image and overlaid text. That said, this application was built so that anyone can be free to use and explore this tool.</p>	
+		<h2 id="FAQ">Frequently Asked Questions</h2>
+		<h3 id="Why">Why use TANDEM?</h3>
+		<p>TANDEM was built to make the process of acquiring multimodal data from text and image content easier. With that said, we recommend that you take a look at what each element of TANDEM does in order to be a fully informed and aware user.</p>
+		<h3 id="built">How was TANDEM built?</h3>
+		<p>Blood, sweat, and a few tears. Actually, the TANDEM team used Python to wrap Tesseract OCR, NLTK, and OpenCV into a single, streamlined Django application. Previously such an multi-pronged analysis would have required each program to be run individually through the command line.</p>
+		<h3 id="components">What are the components of TANDEM?</h3>
+		<ul>
+		<li><h4 id="Tesseract"><strong>Tesseract OCR</strong></h4></li>
+		<p>Tesseract OCR is an optical character recognition engine, sponsored by Google since 2006. Tesseract can read a wide variety of image formats and convert them to text in over 60 languages. <a href="https://code.google.com/p/tesseract-ocr/" class="body" target="_blank">Read more about Tesseract OCR</a>.</p>
+		<li><h4 id="NLTK"><strong>NLTK</strong></h4></li>
+		<p>NLTK stands for the Natural Language Toolkit. It is a free, open source, community-driven project which contains a suite of libraries and programs for symbolic and statistical natural language processing (NLP) for the Python programming language. Such libraries include: Lexical analysis: Word and text tokenizer, n-gram and collocations, part-of-speech tagging, and named-entity recognition. <a href="http://www.nltk.org/" class="body" target="_blank">Learn more about NLTK</a>.</p>
+		<li><h4 id="Open"><strong>Open CV</strong></h4></li>
+		<p>OpenCV stands for Open Source Computer Vision and focuses on real-time image processing. The OpenCV library has more than 2500 optimized algorithms, which can be used to detect and recognize faces, identify objects, classify human actions in videos, track camera movements, track moving objects, find similar images from an image database, follow eye movements, recognize scenery and establish markers to overlay it with augmented reality, and more. <a href="http://opencv.org/" class="body" target="_blank">Learn more about Open CV</a>.</p>
+	    </ul>
+		<h3 id="definitions">I've downloaded my data output. What does each column in the CSV represent?</h3>
+		<table class="table">
+		<thead>
+        <tr>
+          <th>Column Header</th>
+		  <th>Data Description</th>
+        </tr>
+      </thead>
+	  <tbody>
+        <tr class="active">
+		<td>File</td>
+		<td>File name from your original upload</td>
+		</tr>
+		<tr>
+		<td>Total Word Count</td>
+		<td>Total number of words across a particular image</td>
+		</tr>
+		<tr class="active">
+		<td>Total Characters</td>
+		<td>Total number of characters including letters and punctuation across a particular image</td>
+		</tr>
+		<tr>
+		<td>Average Word Length</td>
+		<td>Average number of characters in the words across a particular image</td>
+		</tr>
+		<tr class="active">
+		<td>Unique Word Count</td>
+		<td>Number of different words used across a particular image</td>
+		</tr>
+		<tr>
+		<td>Count without Stopwords</td>
+		<td>Total number of words after stopwords, or words that occur with high-frequency and have less apparent significance such as “the” and “also”</td>
+		</tr>
+		<tr class="active">
+		<td>Image Size (px)</td>
+		<td>Total number of pixels of a given image</td>
+		</tr>
+		<tr>
+		<td>Image Width (px)</td>
+		<td>Side to side length of the image in pixels</td>
+		</tr>
+		<tr class="active">
+		<td>Image Height (px)</td>
+		<td>Top to bottom length of the image in pixels</td>
+		</tr>
+		<tr>
+		<td>Image Color</td>
+		<td>Refers to the color model of the image<a href="#star1" class="body">*</td>
+		</tr>
+		<tr class="active">
+		<td>Mean R</td>
+		<td>Average brightness intensity value of the color red in the image</td>
+		</tr>
+		<tr>
+		<td>Mean G</td>
+		<td>Average brightness intensity value of the color green in the image</td>
+		</tr>
+		<tr class="active">
+		<td>Mean B</td>
+		<td>Average brightness intensity value of the color blue in the image</td>
+		</tr>
+		<tr>
+		<td>Mean Color Channel</td>
+		<td>Will often indicate a value of zero because all images across a volume will generally be the same generating a mean of 0</td>
+		</tr>
+		<tr class="active">
+		<td>Std Dev Mean R<br />Std Dev Mean G<br />Std Dev Mean B</td>
+		<td><br />Used to calculate how dispersed the color values are across all the pixels of the image<a href="#star1" class="body">**</a><br /></td>
+		</tr>
+		</tbody>
+		</table>
+		<p><class id="star1">*</id>A value of “3” indicates that the image has 3 color channels. If it is an RGB image those values are a red, green, and blue channel. Most digital images are formatted in RGB. Red, green, and blue values mix together to generate the rest of the color spectrum on digital devices.</p>
+		<p><class id="star2">**</id>A value closer to zero will illustrate that the image is generally made up of the same colors. Higher standard deviation values in these columns will indicate that there are more colors used across each channel and therefore a more complex set of pixels.</p>
+		<h2 id="readings">Further Readings</h2>
+		<ul>
+			<li><a href="http://cli.learncodethehardway.org/book/" class="body" target="_blank">The Command Line the Hard Way</a> by Zed Shaw</li>
+			<li><a href="http://www.nltk.org/book/" class="body" target="_blank">Natural Language Processing with Python</a> by Steven Bird, Ewan Klein, and Edward Loper</li>
+			<li><a href="http://manovich.net/index.php/projects/how-to-compare" class="body" target="_blank">How to Compare One Million Images</a> by Lev Manovich</li>
+			<li><a href="http://manovich.net/index.php/projects/media-visualization-visual-techniques-for-exploring-large-media-collections" class="body" target="_blank">Media Visualization: Visual Techniques for Exploring Large Media Collections</a> by Lev Manovich</li>
+			<li><a href="http://books.google.com/books/about/Graphs_Maps_Trees.html?id=YL2kvMIF8hEC" class="body" target="_blank">Graphs, Maps, Trees: Abstract Models for a Literary History</a> by Franco Moretti</li>
+	    </ul>
+		<br /><br />
+	  </div>
+	</div>
+		
+	  <div id="footer">
+          <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="images/twitter1.gif" width="50" alt="logo icon"></a>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+	  </div>
+      
+      </div>
+  </body>
+</html>

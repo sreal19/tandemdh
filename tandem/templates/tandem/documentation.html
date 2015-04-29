@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TANDEM</title>
+ 
+<!-- Bootstrap --><!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+ 
+<!-- Optional theme -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<html>
+  <head>
+     <title>TANDEM | Image & Text Analysis Environment</title>
+     <link rel="stylesheet" type="text/css" href="TANDEMstyle.css">
+     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+     <nav>
+      <div class="nav-wrapper">
+        <object class="white_logo" type="image/svg+xml" data="images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="documentation.html">Best Practices</a></li>
+		  <li><a href="sample.html">Sample Data</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="team.html">Contact</a></li>
+         </ul>
+      </div>
+     </nav>
+
+     <div id="header">
+         <img class="logo" src="http://tandem.commons.gc.cuny.edu/files/2015/02/TANDEM-bike-logo.png" center>
+     </div>
+     
+     <div id="container">
+      <div id="content">
+        <h1>Best Practices</h1>
+        <p>TANDEM is currently in its 0.5 phase, which means we're growing & testing. Below you will find some advice to get the best possible results from our application.</p>
+			<ul>
+				<li><a href="#file" class="body">Files Types & Organization</a></li>
+				<li><a href="#image" class="body">Image Quality</a></li>
+				<li><a href="#text" class="body">Text Quality</a></li>
+			</ul>
+		<h2 id="file">File Types & Organization</h2>
+			<ul>
+				<li>TANDEM can process <strong>TIFF, JPEG, and PDF</strong> file types. 
+					<ul>
+					<li>Because PDF files require that the file name contain no spaces (use a dash instead).
+					</ul>
+					</li>
+				<li>We recommend you keep all related corpus files in one folder within your projects folder. </li>
+				<li>If you're processing more than one, save each page or image individually and in their original order.
+					<ul>
+					<li>Example: "MotherGoose1.jpg" and "MotherGoose2.jpg" will ensure that each file is processed sequentially.</li>
+			</ul></ul>
+		<h2 id="image">Image Quality</h2>
+			<ul>
+				<li>If you are processing an image that includes color, make sure your images are in color (versus black and white scans).</li>
+				<li>Sometimes content retrieved from the open Web includes a watermark (such as from HathiTrust or Google Books). TANDEM's NLTK processor will pick up those watermarks. Consider cropping them out, or create your own scans instead.</li>
+			</ul>
+		<h2 id="text">Text Quality</h2>
+			<ul>
+				<li>TANDEM a has been quality tested for English language texts, and provides an output in ascii. If you analyze a corpus in another language, please double check the text output for accuracy.</li>
+				<li>Similarly, if you're corpus contains illuminated lettering (swirly, hand-drawn, or as part of an embedded image) double check the output to ensure NLTK picked up the text.</li>
+			</ul>
+		<p>If your final output looks good, <a href="team.html" class="body" target="_blank">share it with us!</a></p>
+		<p>As TANDEM grows we appreciate feedback from you, especially if it includes features we haven't fully tested yet, such as non-English texts or illuminated lettering. For additional details, see <a href="about.html#FAQ" class="body">Frequently Asked Questions</a>.</p><br /><br />
+      </div>
+	</div>
+		
+	  <div id="footer">
+          <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="images/twitter1.gif" width="50" alt="logo icon"></a>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+      </div>
+      
+      </div>
+  </body>
+</html>
