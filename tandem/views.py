@@ -16,15 +16,23 @@ from .forms import MyUploadForm, ProjectForm
 import buildcorpus, calculate
 from TandemDH import settings
 from tandem.models import Project
-
-time = time.strftime("%j:%H:%M:%S")
-timestamp = time.replace(":","")
-outstorage = FileSystemStorage()
-inputhome = outstorage.location + '/tandemin/' + timestamp
-corpushome = outstorage.location + '/tandemcorpus/' + timestamp
-resultshome = outstorage.location + '/tandemout/' + timestamp
+inputhome = ''
+corpushome = ''
+resultshome = ''
+pname = ''
 ziphome = settings.MEDIA_ROOT
-print ziphome
+
+def start_project():
+    global inputhome, corpushome, resultshome
+    mytime = time.strftime("%j:%H:%M:%S")
+    timestamp = mytime.replace(":","")
+    print "setting time"
+    outstorage = FileSystemStorage()
+    inputhome = outstorage.location + '/tandemin/' + timestamp
+    corpushome = outstorage.location + '/tandemcorpus/' + timestamp
+    resultshome = outstorage.location + '/tandemout/' + timestamp
+
+
 def handle_uploaded_file(f):
     global inputhome
     inputpath = inputhome
@@ -67,53 +75,35 @@ def upload(request):
     return HttpResponse(template.render(context))
 
 def index(request):
-    global inputhome, corpushome, resultshome
-    p = Project()
-    if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            new_project = form.save(commit=False)
-            new_project.input_folder = inputhome
-            new_project.text_folder = corpushome
-            new_project.dest_folder = resultshome
-            new_project.save()
-        return HttpResponseRedirect('tandem/upload')
-    else:
-        form = ProjectForm()
-    template = loader.get_template('tandem/index.html')
-    context = RequestContext(request,{'form':form})
-    return HttpResponse(template.render(context))
-    #print settings.STATICFILES_DIRS
-#    print settings.STATIC_URL
-#    tempvariable = "Press Go to Begin"
-#    context = {'tempvariable': tempvariable}
-#    return render(request, 'tandem/index.html', context)
+    tempvariable = "Press Go to Begin"
+    context = {'tempvariable': tempvariable}
+    return render(request, 'tandem/index.html', context)
 
 def project(request):
-    print "project view"
-    global inputhome, corpushome, resultshome
+    global inputhome, corpushome, resultshome, pname
     p = Project()
     if request.method == 'POST':
-        print "updating project"
         form = ProjectForm(request.POST)
         mystorage = FileSystemStorage()
 
         if form.is_valid():
+
             new_project = form.save(commit=False)
             new_project.input_folder = inputhome
             new_project.text_folder = corpushome
             new_project.dest_folder = resultshome
             new_project.save()
+            pname = new_project.project_name
         return HttpResponseRedirect('tandem/upload')
     else:
-        print "not updating"
+        start_project()
+        print "fresh form...start"
         form = ProjectForm()
     template = loader.get_template('tandem/project.html')
     context = RequestContext(request,{'form':form})
     return HttpResponse(template.render(context))
 
 def analyze(request):
-    analyzevariable = "this will be the filename"
     analyzevariable = build_the_corpus()
     context = {'analyzevariable': analyzevariable}
     return render(request, 'tandem/analyze.html', context)
@@ -126,14 +116,14 @@ def results(request):
     return render(request, 'tandem/results.html', context)
 
 def download(request):
-    global resultshome
+    global resultshome, ziphome, pname
     resultsfolder = resultshome
   #  tandemout = zipfile.ZipFile("/Users/sbr/data/tandem.zip", 'w', zipfile.ZIP_DEFLATED)
   #  zipoutput(resultsfolder, tandemout)
   #  tandemout.close()
 
-    shutil.make_archive(ziphome + '/tandem', 'zip', resultsfolder)
-    filepath = ziphome + "/tandem.zip"
+    shutil.make_archive(ziphome + '/tandem' + pname, 'zip', resultsfolder)
+    filepath = ziphome + "/tandem" + pname + ".zip"
     return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 
 

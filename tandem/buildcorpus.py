@@ -78,7 +78,6 @@ def analysis_setup(ipath, cpath, rpath):
         if inextension == '.tiff':
             inputlist.append(file)
             ocrit(infullpath, corpfullpath, file)
-            print "corp=", corpuspath
             shutil.copy2(infullpath, corpfullpath)
         elif inextension == '.jpg':
             inputlist.append(file)
@@ -89,9 +88,7 @@ def analysis_setup(ipath, cpath, rpath):
             ocrit(infullpath, corpfullpath, file)
             shutil.copy2(infullpath, corpfullpath)
         elif inextension == '.pdf':
-            print file
             inputlist.append(file)
             pdfconvert(infullpath, infilename, corpfullpath)
 
-    print inputlist
     return inputlist

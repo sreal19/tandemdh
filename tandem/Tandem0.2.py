@@ -104,7 +104,10 @@ def image_extract(infullpath):
     image_size = image_input.size
     image_shape = image_input.shape
     shapelist = list(image_shape)
+    print "shape length=", len(shapelist)
+   # print "size length=", len(image_size)
     image_meanrgb = cv2.mean(image_input)
+    print "rgb length=", len(image_meanrgb)
     i_means, i_stds = cv2.meanStdDev(image_input)
 
     image_stats = np.concatenate([i_means,i_stds]).flatten()

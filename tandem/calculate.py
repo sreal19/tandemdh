@@ -82,13 +82,12 @@ def merge_all(folder):
 
 def write_first_row(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb, imgstats, txtdat):               #write the first row of the main output file
     global outputopen, goflag
-    #print "stats=", imgstats
     with open(outname, 'wb') as csvfile:
         tandemwriter = csv.writer(csvfile, delimiter=',',
                     quotechar='|', quoting=csv.QUOTE_MINIMAL)
         tandemwriter.writerow(['File','Total Word Count', 'Total Characters', 'Average Word Length',
-                   'Unique Word Count', 'Count wout Stopword', 'Image Size','Image Width', 'Image Height',
-                   'Image Shape 3', 'Image Mean R', 'Image Mean G', 'Image Mean B', 'Mean Color Channel','Std Dev Mean R',
+                   'Unique Word Count', 'Count without Stopwords', 'Image Size(pixels)','Image Shape(W)', 'Image Shape(H)',
+                   '# of Color Channels', 'Image Mean R', 'Image Mean G', 'Image Mean B', 'Mean Color Channel','Std Dev Mean R',
                     'Std Dev Mean G', 'Std Dev Mean B'])
         tandemwriter.writerow([filename0]+[txtdat[0]]+[txtdat[1]]+[txtdat[2]]+[txtdat[3]]+
                       [txtdat[4]]+[imgsize]+[imgshape[0]]+[imgshape[1]]+[imgshape[2]]+[imgmeanrgb[0]]+
@@ -193,17 +192,14 @@ def mainout(corpusfolder, outfolder):
             nltkdata.append(unique_nonstop_words)
             nltkdata.append(ascii_sorted)
             if outputopen:
-                print "writing the rest"
                 if namestring <> "TandemAllText":
                     write_the_rest(outfolder, outfile, namestring, isizelist[count], ishapelist[count],
                         imeanrgblist[count], istatslist[count], nltkdata)
                 else:
                     write_the_last(outfolder, outfile, namestring, nltkdata)
             else:
-                print "count=", count
                 write_first_row(outfolder, outfile, namestring, isizelist[count], ishapelist[count],
                     imeanrgblist[count], istatslist[count], nltkdata)
-            print namestring
             if namestring <> "TandemAllText":
                 count += 1
 
