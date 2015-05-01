@@ -31,11 +31,13 @@ def start_project():
     inputhome = outstorage.location + '/tandemin/' + timestamp
     corpushome = outstorage.location + '/tandemcorpus/' + timestamp
     resultshome = outstorage.location + '/tandemout/' + timestamp
+    print inputhome, "startup"
 
 
 def handle_uploaded_file(f):
     global inputhome
     inputpath = inputhome
+    print inputhome, "uploading"
     if os.path.exists(inputpath):
         pass
     else:
