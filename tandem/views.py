@@ -185,7 +185,7 @@ def terms(request):
 def team(request):
     teamvar = "team"
     context = {'teamvar':teamvar}
-    return render(request, 'tandem/team.html', context))
+    return render(request, 'tandem/team.html', context)
 
 def sample(request):
     samplevar = "sample"
