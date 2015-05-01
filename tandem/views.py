@@ -94,7 +94,7 @@ def project(request):
             new_project.dest_folder = resultshome
             new_project.save()
             pname = new_project.project_name
-        return HttpResponseRedirect('tandem/upload')
+        return HttpResponseRedirect('upload')
     else:
         start_project()
         print "fresh form...start"
@@ -102,6 +102,7 @@ def project(request):
     template = loader.get_template('tandem/project.html')
     context = RequestContext(request,{'form':form})
     return HttpResponse(template.render(context))
+  #  return render(request, 'tandem/project.html', context)
 
 def analyze(request):
     analyzevariable = build_the_corpus()
@@ -112,6 +113,7 @@ def results(request):
     global corpushome, resultshome
     calculate.mainout(corpushome, resultshome)
     resultsvariable = [ f for f in os.listdir(resultshome) if os.path.isfile(os.path.join(resultshome,f)) ]
+
     context = {'resultsvariable': resultsvariable}
     return render(request, 'tandem/results.html', context)
 
@@ -132,3 +134,29 @@ def download(request):
     context = {'downloadvar': downloadvar}
     return render(request, 'tandem/download.html', context)
     #return response
+
+def about(request):
+  #  template = loader.get_template('tandem/about.html')
+    aboutvariable = "about"
+    context = {'aboutvariable': aboutvariable}
+    return render(request, 'tandem/about.html', context)
+
+def documentation(request):
+    template = loader.get_template('documentation.html')
+   # context = RequestContext
+    return HttpResponse(template.render())
+
+def terms(request):
+    template = loader.get_template('terms.html')
+    context = RequestContext
+    return HttpResponse(template.render(context))
+
+def team(request):
+    template = loader.get_template('team.html')
+    context = RequestContext
+    return HttpResponse(template.render(context))
+
+def sample(request):
+    template = loader.get_template('sample.html')
+    context = RequestContext
+    return HttpResponse(template.render(context))

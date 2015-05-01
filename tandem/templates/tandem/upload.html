@@ -42,7 +42,7 @@
         <p>Pro tip: If you have more than 1 file, select them all.</p>
 		<br />
         <!-- Upload form. Note enctype attribute! -->
-        <form action="/tandem/upload/" method="post" enctype="multipart/form-data">
+        <form action="/upload/" method="post" enctype="multipart/form-data">
         <!-- Added to pull in logic from forms.py -->
             {% csrf_token %}
             <table>

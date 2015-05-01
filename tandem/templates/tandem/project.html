@@ -41,7 +41,7 @@
 			<body>
                <h1>Define your Project</h1>
 <!-------------I need to add this section to capture the project persistent data------------------>
-                    <form action="tandem/project/" method="post">
+                    <form action="/project/" method="post">
                         {% csrf_token %}
                         <label for="project_name">Project Name: </label>
                         <input id="project_name" type="text" name="project_name" maxlength="200"><br>

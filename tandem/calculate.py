@@ -81,6 +81,7 @@ def merge_all(folder):
                     outfile.write(infile.read())
 
 def write_first_row(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb, imgstats, txtdat):               #write the first row of the main output file
+    print "tandemout=", outfolder, outname, filename0
     global outputopen, goflag
     with open(outname, 'wb') as csvfile:
         tandemwriter = csv.writer(csvfile, delimiter=',',
@@ -140,10 +141,6 @@ def write_the_lists(folder, filename, txtdat):
 def mainout(corpusfolder, outfolder):
     global outputopen
     outputopen = False
-    isize = 0
-    ishape  = 0
-    imeanrgb = []
-    istats = []
     isizelist = []
     ishapelist = []
     imeanrgblist = []
