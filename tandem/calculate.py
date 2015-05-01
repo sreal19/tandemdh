@@ -81,7 +81,7 @@ def merge_all(folder):
                     outfile.write(infile.read())
 
 def write_first_row(outfolder, outname, filename0, imgsize, imgshape, imgmeanrgb, imgstats, txtdat):               #write the first row of the main output file
-    print "tandemout=", outfolder, outname, filename0
+    print "tandemout=", outfolder
     global outputopen, goflag
     with open(outname, 'wb') as csvfile:
         tandemwriter = csv.writer(csvfile, delimiter=',',
@@ -167,6 +167,7 @@ def mainout(corpusfolder, outfolder):
         nltkdata = []
         if os.path.splitext(file)[1] == '.txt':
             namestring = os.path.splitext(file)[0]
+            print "tokenize ", file
             allwords, nonstops, allcount, allchar = tokenize_file(file, corpusfolder, english_stops)
             if allcount == 0:
                 avg_word_length = 'na'

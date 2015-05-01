@@ -60,7 +60,6 @@ def make_zip(path, zip):
     for root, dirs, files in os.walk(path):
         print "zip folder", root
         for file in files:
-            print "zipping"
             zipf.write(os.path.join(root, file))
     zipf.close
     zipdata.seek(0)
@@ -73,7 +72,6 @@ def upload(request):
         print "upload form method=POST"
         form = MyUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            print "Form is valid"
             for f in request.FILES.getlist('attachments'):
                 print "handling"
                 handle_uploaded_file(f)
@@ -175,21 +173,21 @@ def about(request):
     return render(request, 'tandem/about.html', context)
 
 def documentation(request):
-    template = loader.get_template('documentation.html')
-   # context = RequestContext
-    return HttpResponse(template.render())
+    docvar = "doc"
+    context = {'docvar': docvar}
+    return render(request, 'tandem/documentation.html', context)
 
 def terms(request):
-    template = loader.get_template('terms.html')
-    context = RequestContext
-    return HttpResponse(template.render(context))
+    termsvar ='terms'
+    context = {'termsvar':termsvar}
+    return render(request, 'tandem/terms.html', context)
 
 def team(request):
-    template = loader.get_template('team.html')
-    context = RequestContext
-    return HttpResponse(template.render(context))
+    teamvar = "team"
+    context = {'teamvar':teamvar}
+    return render(request, 'tandem/team.html', context))
 
 def sample(request):
-    template = loader.get_template('sample.html')
-    context = RequestContext
-    return HttpResponse(template.render(context))
+    samplevar = "sample"
+    context = {'samplevar':samplevar}
+    return render(request, 'tandem/sample.html', context)
