@@ -9,6 +9,7 @@ from django.views.static import serve
 #from django.shortcuts import render_to_response
 import time, tempfile, zipfile, zlib
 import os, shutil
+from cStringIO import StringIO
 
 
 from .forms import MyUploadForm, ProjectForm
@@ -52,12 +53,20 @@ def build_the_corpus():
     processlist = buildcorpus.analysis_setup(inputhome, corpushome, resultshome)
     return processlist
 
-def zipoutput(path, zip):
+def make_zip(path, zip):
+    zipdata = StringIO()
+    zipf = zipfile.ZipFile(zipdata,mode='w')
+
     for root, dirs, files in os.walk(path):
-        print root
+        print "zip folder", root
         for file in files:
             print "zipping"
-            zip.write(os.path.join(root, file))
+            zipf.write(os.path.join(root, file))
+    zipf.close
+    zipdata.seek(0)
+    zipresponse = HttpResponse(zipdata.read())
+    return zipresponse
+
 
 def upload(request):
     if request.method == 'POST':
@@ -122,21 +131,43 @@ def results(request):
 def download(request):
     global resultshome, ziphome, pname
     resultsfolder = resultshome
-  #  tandemout = zipfile.ZipFile("/Users/sbr/data/tandem.zip", 'w', zipfile.ZIP_DEFLATED)
-  #  zipoutput(resultsfolder, tandemout)
-  #  tandemout.close()
+    #try:
+    response = make_zip(resultsfolder,'tandem')
+    print 'zip ok'
 
-    shutil.make_archive(ziphome + '/tandem' + pname, 'zip', resultsfolder)
-    filepath = ziphome + "/tandem" + pname + ".zip"
-    return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
+    response['Content-Disposition']= 'attachment; filename=%s.zip' %('tandem')
+    response['Content-Type']= 'application/zip'
+    return response
+    #except:
+    #    print "zip didn't work"
+    #    return HttpResponseRedirect(reverse('results'))
+'''
+    tmpdir = tempfile.mkdtemp()
+    try:
+        tmparchive = os.path.join(tmpdir, "tandemzip")
+        root_dir = ziphome
+        data = open(shutil.make_archive(tmparchive, 'zip', root_dir), 'rb').read()
+        print type(data)
+        print len(data)
+    finally:
+        shutil.rmtree(tmpdir)
+
+    #shutil.make_archive(ziphome + '/tandem' + pname, 'zip', resultsfolder)
+    #filepath = ziphome + "/tandem" + pname + ".zip"
+    response = HttpResponse(data)
+    response['Content-Dispostiosn'] = 'attachement; filename=yippeee'
+    context = {'response':response}
+    return render(request, 'tandem/results.html',context,
+                  content_type = 'applications/zip')
+    #return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 
 
     print "got here"
     downloadvar = "Success!"
     context = {'downloadvar': downloadvar}
-    return render(request, 'tandem/download.html', context)
+    #return render(request, 'tandem/download.html', context)
     #return response
-
+'''
 def about(request):
   #  template = loader.get_template('tandem/about.html')
     aboutvariable = "about"
