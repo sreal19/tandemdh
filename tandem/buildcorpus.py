@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 __author__ = 'sbr'
 import os
 import sys
-import shutil
+import shutil, string
 from cStringIO import StringIO
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
@@ -21,6 +21,9 @@ def process_image(file):            #helper function to OCR a singe file
 
 def ocrit(infullpath, outfullpath, file):          #run Tesseract OCR engine using process_image()
     cfile = os.path.splitext(outfullpath)[0] + '.txt'
+    cfile = string.replace(cfile, ' ', '_')
+    cfile = string.replace(cfile, '(', '_')
+    cfile = string.replace(cfile, ')', '_')
     temp = open(cfile, 'w')
     temp.write (str(process_image(infullpath)))
     temp.close()
@@ -43,6 +46,9 @@ def pdfconvert(infullpath, file, outfullpath, pages=None):         #Handle PDF
 
     jpgfile = os.path.splitext(outfullpath)[0] + '.jpg'
     txtfile = os.path.splitext(outfullpath)[0] + '.txt'
+    string.replace(txtfile, ' ', '_')
+    string.replace(txtfile, '(', '_')
+    string.replace(txtfile, ')', '_')
     text = output.getvalue()
     output.close
     temp = open(txtfile, 'w')

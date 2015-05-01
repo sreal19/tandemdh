@@ -31,6 +31,8 @@ def tokenize_file(file, corpus_root, english_stops):            #tokenize input 
     word_count = 0
     wordlist = []
 
+    print "corpus_root=", corpus_root
+    print "file=", file
     reader = WordListCorpusReader(corpus_root, file)
     chunks = reader.words()
 
