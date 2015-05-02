@@ -17,6 +17,7 @@ from .forms import MyUploadForm, ProjectForm
 import buildcorpus, calculate
 from TandemDH import settings
 from tandem.models import Project
+print 'initializing in views.py'
 inputhome = ''
 corpushome = ''
 resultshome = ''
@@ -59,14 +60,18 @@ def make_corpus_folder(corpuspath):
     corp_bld_status = 0
 
     if os.path.exists(corpuspath):
+        print "corpuspath exists=", corpuspath
         pass
     else:
+        print "making corpuspath=", corpuspath
         os.mkdir(corpuspath)
 
 def make_results_folder(resultspath):
     if os.path.exists(resultspath):
+        print "resultspath exists=", resultspath
         pass
     else:
+        print "making resultspath=", resultspath
         os.mkdir(resultspath)
 
 
