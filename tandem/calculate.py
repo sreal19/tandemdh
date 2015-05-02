@@ -31,8 +31,6 @@ def tokenize_file(file, corpus_root, english_stops):            #tokenize input 
     word_count = 0
     wordlist = []
 
-    print "corpus_root=", corpus_root
-    print "file=", file
     reader = WordListCorpusReader(corpus_root, file)
     chunks = reader.words()
 
@@ -169,7 +167,6 @@ def mainout(corpusfolder, outfolder):
         nltkdata = []
         if os.path.splitext(file)[1] == '.txt':
             namestring = os.path.splitext(file)[0]
-            print "tokenize ", file
             allwords, nonstops, allcount, allchar = tokenize_file(file, corpusfolder, english_stops)
             if allcount == 0:
                 avg_word_length = 'na'

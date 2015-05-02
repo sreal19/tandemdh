@@ -36,26 +36,33 @@ def start_project():
 
 
 def handle_uploaded_file(f):
+    status = 'ok'
     global inputhome
     inputpath = inputhome
-    print inputhome, "uploading"
-    if os.path.exists(inputpath):
-        pass
-    else:
-        os.mkdir(inputpath)
-    fullname = inputpath + '/' + str(f.name)
-    with open(fullname, 'wb+') as destination:
-        for chunk in f.chunks():
+    if inputpath != '':
+        print inputhome, "uploading"
+        if os.path.exists(inputpath):
+            pass
+        else:
+            os.mkdir(inputpath)
+        fullname = inputpath + '/' + str(f.name)
+        with open(fullname, 'wb+') as destination:
+            for chunk in f.chunks():
                 destination.write(chunk)
+    else:
+        status = "upload failure"
+    return status
 
 def build_the_corpus():
     global timestamp, inputhome, corpushome, resultshome
     processlist = buildcorpus.analysis_setup(inputhome, corpushome, resultshome)
+    if processlist[0] == -1:
+        print "build failed"
     return processlist
 
 def make_zip(path, zip):
     zipdata = StringIO()
-    zipf = zipfile.ZipFile(zipdata,mode='w')
+    zipf = zipfile.ZipFile(zipdata, 'w')
 
     for root, dirs, files in os.walk(path):
         print "zip folder", root
@@ -66,25 +73,42 @@ def make_zip(path, zip):
     zipresponse = HttpResponse(zipdata.read())
     return zipresponse
 
+def make_zip_new(path, zip):
+    zipdata = StringIO()
+    zipf = zipfile.ZipFile(zipdata, 'w', zipfile.ZIP_DEFLATED)
+    abs_src = os.path.abspath(path)
+    for dirname, subdirs, files in os.walk(path):
+        for filename in files:
+            absname = os.path.abspath(os.path.join(dirname,filename))
+            arcname = absname[len(abs_src) + 1:]
+            print 'zipping %s as %s' % (os.path.join(dirname,filename), arcname)
+            zipf.write(os.path.join(absname, arcname))
+    zipf.close
+    zipdata.seek(0)
+    zipresponse = HttpResponse(zipdata.read())
+    return zipresponse
+
 
 def upload(request):
+    upload_status = 'ok'
     if request.method == 'POST':
-        print "upload form method=POST"
         form = MyUploadForm(request.POST, request.FILES)
         if form.is_valid():
             for f in request.FILES.getlist('attachments'):
-                print "handling"
-                handle_uploaded_file(f)
-            return HttpResponseRedirect('analyze')
+                upload_status = handle_uploaded_file(f)
+            if upload_status == 'ok':
+                print "upload ok"
+                return HttpResponseRedirect('analyze')
     else:
-        print "fresh"
         form = MyUploadForm()
+    if upload_status <> 'ok':
+        print "upload failed"
     template = loader.get_template('tandem/upload.html')
     context = RequestContext(request,{'form':form})
     return HttpResponse(template.render(context))
 
 def index(request):
-    tempvariable = "Press Go to Begin"
+    tempvariable = "start"
     context = {'tempvariable': tempvariable}
     return render(request, 'tandem/index.html', context)
 
@@ -115,6 +139,10 @@ def project(request):
 
 def analyze(request):
     analyzevariable = build_the_corpus()
+    if analyzevariable[0] == -1:
+        build = "failed"
+        context = {"build": build}
+        return render(request, 'tandem/analyze.html', context)
     context = {'analyzevariable': analyzevariable}
     return render(request, 'tandem/analyze.html', context)
 
@@ -130,15 +158,16 @@ def download(request):
     global resultshome, ziphome, pname
     resultsfolder = resultshome
     #try:
-    response = make_zip(resultsfolder,'tandem')
+    response = make_zip(resultsfolder,ziphome)
     print 'zip ok'
 
-    response['Content-Disposition']= 'attachment; filename=%s.zip' %('tandem')
+    response['Content-Disposition']= 'attachment;filename=%s.zip' %('tandem')
     response['Content-Type']= 'application/zip'
     return response
-    #except:
-    #    print "zip didn't work"
-    #    return HttpResponseRedirect(reverse('results'))
+
+
+
+
 '''
     tmpdir = tempfile.mkdtemp()
     try:

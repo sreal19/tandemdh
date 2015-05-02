@@ -58,10 +58,24 @@ def pdfconvert(infullpath, file, outfullpath, pages=None):         #Handle PDF
     imagemagick_string = 'convert ' + '"' + infullpath + '" "' + jpgfile + '"'
     os.system(imagemagick_string)
 
+def check_build_status(cfolder, ofolder):
+    if cfolder == '':
+        build_status = -1
+    if ofolder == '':
+        build_status = -1
 
 def analysis_setup(ipath, cpath, rpath):
+    print "corpus folder=", cpath
+    print "output folder=", rpath
     inputlist = []
     corpuspath = cpath
+
+    build_status = 0
+    build_status = check_build_status(cpath, rpath)
+
+    if build_status == -1:
+        inputlist.append(build_status)
+        return inputlist
 
     if os.path.exists(corpuspath):
         pass
