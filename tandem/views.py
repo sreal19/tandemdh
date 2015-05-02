@@ -37,7 +37,7 @@ def start_project():
 
 def handle_uploaded_file(f):
     status = 'ok'
-    global inputhome
+    global inputhome, corpushome, resultshome
     inputpath = inputhome
     if inputpath != '':
         print inputhome, "uploading"
@@ -49,9 +49,26 @@ def handle_uploaded_file(f):
         with open(fullname, 'wb+') as destination:
             for chunk in f.chunks():
                 destination.write(chunk)
+        make_corpus_folder(corpushome)
+        make_results_folder(resultshome)
     else:
         status = "upload failure"
     return status
+
+def make_corpus_folder(corpuspath):
+    corp_bld_status = 0
+
+    if os.path.exists(corpuspath):
+        pass
+    else:
+        os.mkdir(corpuspath)
+
+def make_results_folder(resultspath):
+    if os.path.exists(resultspath):
+        pass
+    else:
+        os.mkdir(resultspath)
+
 
 def build_the_corpus():
     global timestamp, inputhome, corpushome, resultshome
