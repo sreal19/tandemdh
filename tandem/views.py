@@ -40,6 +40,7 @@ def start_project():
     resultshome = outstorage.location + '/tandemout/' + timestamp
 
 def run():
+    global inputhome, corpushome, resultshome
     start_project()
     print "making input folder"
     make_input_folder(inputhome)
@@ -143,7 +144,8 @@ def upload(request):
 
 def index(request):
     run()
-    tempvariable = "start"
+    tempvariable = "render index html"
+    print tempvariable
     context = {'tempvariable': tempvariable}
     return render(request, 'tandem/index.html', context)
 
