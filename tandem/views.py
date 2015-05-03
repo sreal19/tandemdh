@@ -17,66 +17,26 @@ from .forms import MyUploadForm, ProjectForm
 import buildcorpus, calculate
 from TandemDH import settings
 from tandem.models import Project
-print 'initializing in views.py'
-inputhome = ''
-corpushome = ''
-resultshome = ''
+from tandem import startup
+
 pname = ''
 ziphome = settings.MEDIA_ROOT
 
-def start_project():
-    global inputhome, corpushome, resultshome
-    mytime = time.strftime("%j:%H:%M:%S")
-    timestamp = mytime.replace(":","")
-    print "setting time"
-    outstorage = FileSystemStorage()
-    inputhome = outstorage.location + '/tandemin/' + timestamp
-    corpushome = outstorage.location + '/tandemcorpus/' + timestamp
-    resultshome = outstorage.location + '/tandemout/' + timestamp
-    print inputhome, "startup"
-
-
 def handle_uploaded_file(f):
     status = 'ok'
-    global inputhome, corpushome, resultshome
-    inputpath = inputhome
-    if inputpath != '':
+    inputhome, corpushome, resultshome = startup.get_paths()
+    if inputhome != '':
         print inputhome, "uploading"
-        if os.path.exists(inputpath):
-            pass
-        else:
-            os.mkdir(inputpath)
-        fullname = inputpath + '/' + str(f.name)
+        fullname = inputhome + '/' + str(f.name)
         with open(fullname, 'wb+') as destination:
             for chunk in f.chunks():
                 destination.write(chunk)
-        make_corpus_folder(corpushome)
-        make_results_folder(resultshome)
     else:
         status = "upload failure"
     return status
 
-def make_corpus_folder(corpuspath):
-    corp_bld_status = 0
-
-    if os.path.exists(corpuspath):
-        print "corpuspath exists=", corpuspath
-        pass
-    else:
-        print "making corpuspath=", corpuspath
-        os.mkdir(corpuspath)
-
-def make_results_folder(resultspath):
-    if os.path.exists(resultspath):
-        print "resultspath exists=", resultspath
-        pass
-    else:
-        print "making resultspath=", resultspath
-        os.mkdir(resultspath)
-
-
 def build_the_corpus():
-    global timestamp, inputhome, corpushome, resultshome
+    inputhome, corpushome, resultshome = startup.get_paths()
     processlist = buildcorpus.analysis_setup(inputhome, corpushome, resultshome)
     if processlist[0] == -1:
         print "build failed"
@@ -130,12 +90,14 @@ def upload(request):
     return HttpResponse(template.render(context))
 
 def index(request):
+    startup.run()
     tempvariable = "start"
     context = {'tempvariable': tempvariable}
     return render(request, 'tandem/index.html', context)
 
 def project(request):
-    global inputhome, corpushome, resultshome, pname
+    global pname
+    inputhome, corpushome, resultshome = startup.get_paths()
     p = Project()
     if request.method == 'POST':
         form = ProjectForm(request.POST)
@@ -151,7 +113,6 @@ def project(request):
             pname = new_project.project_name
         return HttpResponseRedirect('upload')
     else:
-        start_project()
         print "fresh form...start"
         form = ProjectForm()
     template = loader.get_template('tandem/project.html')
@@ -169,7 +130,7 @@ def analyze(request):
     return render(request, 'tandem/analyze.html', context)
 
 def results(request):
-    global corpushome, resultshome
+    inputhome, corpushome, resultshome = startup.get_paths()
     calculate.mainout(corpushome, resultshome)
     resultsvariable = [ f for f in os.listdir(resultshome) if os.path.isfile(os.path.join(resultshome,f)) ]
 
@@ -177,7 +138,8 @@ def results(request):
     return render(request, 'tandem/results.html', context)
 
 def download(request):
-    global resultshome, ziphome, pname
+    global ziphome, pname
+    inputhome, corpushome, resultshome = startup.get_paths()
     resultsfolder = resultshome
     #try:
     response = make_zip(resultsfolder,ziphome)

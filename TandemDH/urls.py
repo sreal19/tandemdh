@@ -2,7 +2,11 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.core.files.storage import FileSystemStorage
+import os, time
 from tandem import views
+from TandemDH import settings
+
 
 urlpatterns = [
 
@@ -21,3 +25,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'index/$',views.index, name='index'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+
+
+
+
