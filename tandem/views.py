@@ -38,8 +38,6 @@ def handle_uploaded_file(f):
 def build_the_corpus():
     inputhome, corpushome, resultshome = startup.get_paths()
     processlist = buildcorpus.analysis_setup(inputhome, corpushome, resultshome)
-    if processlist[0] == -1:
-        print "build failed"
     return processlist
 
 def make_zip(path, zip):

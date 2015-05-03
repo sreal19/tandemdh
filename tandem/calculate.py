@@ -195,6 +195,9 @@ def mainout(corpusfolder, outfolder):
                 else:
                     write_the_last(outfolder, outfile, namestring, nltkdata)
             else:
+                print "count=", count
+                print "first row"
+                print "length of list=",len(isizelist)
                 write_first_row(outfolder, outfile, namestring, isizelist[count], ishapelist[count],
                     imeanrgblist[count], istatslist[count], nltkdata)
             if namestring <> "TandemAllText":
