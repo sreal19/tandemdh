@@ -52,21 +52,21 @@ def run():
     make_results_folder(resultshome)
 
 def make_input_folder(inputpath):
-
     if os.path.exists(inputpath):
         print "inputpath exists=", inputpath
         pass
     else:
         print "making inputpath=", inputpath
+        os.umask(0000)
         os.mkdir(inputpath)
 
 def make_corpus_folder(corpuspath):
-    corp_bld_status = 0
     if os.path.exists(corpuspath):
         print "corpuspath exists=", corpuspath
         pass
     else:
         print "making corpuspath=", corpuspath
+        os.umask(0000)
         os.mkdir(corpuspath)
 
 def make_results_folder(resultspath):
@@ -75,6 +75,7 @@ def make_results_folder(resultspath):
         pass
     else:
         print "making resultspath=", resultspath
+        os.umask
         os.mkdir(resultspath)
 
 def handle_uploaded_file(f):
@@ -95,15 +96,17 @@ def build_the_corpus():
     processlist = buildcorpus.analysis_setup(inputhome, corpushome, resultshome)
     return processlist
 
-def make_zip(path, zip):
+def make_zip(path):
     zipdata = StringIO()
-    zipf = zipfile.ZipFile(zipdata, 'w')
-
+    zipf = zipfile.ZipFile(zipdata, 'w',)
+   # info = zipfile.ZipInfo(zipf)
+   # info.external_attr = 0777 << 16L
     for root, dirs, files in os.walk(path):
         print "zip folder", root
         for file in files:
             zipf.write(os.path.join(root, file))
     zipf.close
+    os.chmod(zipf, 0777)
     zipdata.seek(0)
     zipresponse = HttpResponse(zipdata.read())
     return zipresponse
@@ -191,19 +194,21 @@ def results(request):
     return render(request, 'tandem/results.html', context)
 
 def download(request):
-    global ziphome, pname, inputhome, corpushome, resultshome
-    resultsfolder = resultshome
-    #try:
-    response = make_zip(resultsfolder,ziphome)
-    print 'zip ok'
-
-    response['Content-Disposition']= 'attachment;filename=%s.zip' %('tandem')
-    response['Content-Type']= 'application/zip'
-    return response
-
-
-
-
+    global pname, inputhome, corpushome, resultshome, ziphome
+#    resultsfolder = resultshome
+#    response = make_zip(resultsfolder)
+#    print 'zip ok'
+#    response['Content-Disposition']= 'attachment;filename=%s.zip' %('tandem')
+#    response['Content-Type']= 'application/zip'
+#    return response
+    shutil.make_archive(ziphome + '/tandem' + pname, 'zip', resultshome)
+    filepath = ziphome + "/tandem" + pname + ".zip"
+    response = HttpResponse()
+    response['Content-Dispostiosn'] = 'attachement; filename=yippeee'
+    context = {'response':response}
+   # return render(request, 'tandem/results.html',context,
+   #               content_type = 'applications/zip')
+    return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 '''
     tmpdir = tempfile.mkdtemp()
     try:
@@ -214,23 +219,14 @@ def download(request):
         print len(data)
     finally:
         shutil.rmtree(tmpdir)
-
-    #shutil.make_archive(ziphome + '/tandem' + pname, 'zip', resultsfolder)
-    #filepath = ziphome + "/tandem" + pname + ".zip"
-    response = HttpResponse(data)
-    response['Content-Dispostiosn'] = 'attachement; filename=yippeee'
-    context = {'response':response}
-    return render(request, 'tandem/results.html',context,
-                  content_type = 'applications/zip')
-    #return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
+'''
 
 
-    print "got here"
-    downloadvar = "Success!"
-    context = {'downloadvar': downloadvar}
+#    print "got here"
+#    downloadvar = "Success!"
+#    context = {'downloadvar': downloadvar}
     #return render(request, 'tandem/download.html', context)
     #return response
-'''
 def about(request):
   #  template = loader.get_template('tandem/about.html')
     aboutvariable = "about"
