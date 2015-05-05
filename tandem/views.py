@@ -88,6 +88,7 @@ def handle_uploaded_file(f):
             for chunk in f.chunks():
                 destination.write(chunk)
     else:
+        print "inputhome=", inputhome
         status = "upload failure"
     return status
 
@@ -140,9 +141,10 @@ def upload(request):
     else:
         form = MyUploadForm()
     if upload_status <> 'ok':
-        print "upload failed"
+        print "upload status=", upload_status
     template = loader.get_template('tandem/upload.html')
     context = RequestContext(request,{'form':form})
+    print "render upload"
     return HttpResponse(template.render(context))
 
 def index(request):
@@ -173,6 +175,7 @@ def project(request):
         form = ProjectForm()
     template = loader.get_template('tandem/project.html')
     context = RequestContext(request,{'form':form})
+    print "render project"
     return HttpResponse(template.render(context))
   #  return render(request, 'tandem/project.html', context)
 
@@ -183,6 +186,7 @@ def analyze(request):
         context = {"build": build}
         return render(request, 'tandem/analyze.html', context)
     context = {'analyzevariable': analyzevariable}
+    print "render analyze"
     return render(request, 'tandem/analyze.html', context)
 
 def results(request):
