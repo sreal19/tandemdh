@@ -195,6 +195,7 @@ def results(request):
     resultsvariable = [ f for f in os.listdir(resultshome) if os.path.isfile(os.path.join(resultshome,f)) ]
 
     context = {'resultsvariable': resultsvariable}
+    print 'render results'
     return render(request, 'tandem/results.html', context)
 
 def download(request):
@@ -207,6 +208,8 @@ def download(request):
 #    return response
     shutil.make_archive(ziphome + '/tandem' + pname, 'zip', resultshome)
     filepath = ziphome + "/tandem" + pname + ".zip"
+    print "creating zip at", filepath
+    print "zipping files at ", resultshome
     response = HttpResponse()
     response['Content-Dispostiosn'] = 'attachement; filename=yippeee'
     context = {'response':response}
