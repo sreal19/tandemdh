@@ -148,13 +148,13 @@ def upload(request):
     return HttpResponse(template.render(context))
 
 def index(request):
-    run()
     tempvariable = "render index html"
     print tempvariable
     context = {'tempvariable': tempvariable}
     return render(request, 'tandem/index.html', context)
 
 def project(request):
+    run()
     global pname, inputhome, corpushome, resultshome
     p = Project()
     if request.method == 'POST':

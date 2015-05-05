@@ -139,6 +139,7 @@ def write_the_lists(folder, filename, txtdat):
                 i += 1
 
 def mainout(corpusfolder, outfolder):
+    print "calculate.py"
     global outputopen
     outputopen = False
     isizelist = []

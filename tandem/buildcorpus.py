@@ -59,6 +59,7 @@ def pdfconvert(infullpath, file, outfullpath, pages=None):         #Handle PDF
     os.system(imagemagick_string)
 
 def analysis_setup(ipath, cpath, rpath):
+    print "buildcorpus.py"
     print "corpus folder=", cpath
     print "output folder=", rpath
     inputlist = []
