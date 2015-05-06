@@ -38,18 +38,19 @@ def start_project():
     inputhome = outstorage.location + '/tandemin/' + timestamp
     corpushome = outstorage.location + '/tandemcorpus/' + timestamp
     resultshome = outstorage.location + '/tandemout/' + timestamp
+    return inputhome, corpushome, resultshome
 
 def run():
-    global inputhome, corpushome, resultshome
-    start_project()
+    inpath, corpath, outpath = start_project()
     print "making input folder"
-    make_input_folder(inputhome)
+    make_input_folder(inpath)
 
     print "making corpus folder"
-    make_corpus_folder(corpushome)
+    make_corpus_folder(corpath)
 
     print "making results folder"
-    make_results_folder(resultshome)
+    make_results_folder(outpath)
+    return inpath, corpath, outpath
 
 def make_input_folder(inputpath):
     if os.path.exists(inputpath):
@@ -78,9 +79,11 @@ def make_results_folder(resultspath):
         os.umask
         os.mkdir(resultspath)
 
-def handle_uploaded_file(f):
+def handle_uploaded_file(f, request):
     status = 'ok'
-    global inputhome, corpushome, resultshome
+    project_key = request.session['key']
+    project = Project.objects.get(pk = project_key)
+    inputhome = project.input_folder
     if inputhome != '':
         print inputhome, "uploading"
         fullname = inputhome + '/' + str(f.name)
@@ -92,7 +95,12 @@ def handle_uploaded_file(f):
         status = "upload failure"
     return status
 
-def build_the_corpus():
+def build_the_corpus(request):
+    project_key = request.session['key']
+    project = Project.objects.get(pk = project_key)
+    inputhome = project.input_folder
+    corpushome = project.text_folder
+    resultshome = project.dest_folder
     global inputhome, corpushome, resultshome
     processlist = buildcorpus.analysis_setup(inputhome, corpushome, resultshome)
     return processlist
@@ -131,10 +139,11 @@ def make_zip_new(path, zip):
 def upload(request):
     upload_status = 'ok'
     if request.method == 'POST':
+        print "session", request.session
         form = MyUploadForm(request.POST, request.FILES)
         if form.is_valid():
             for f in request.FILES.getlist('attachments'):
-                upload_status = handle_uploaded_file(f)
+                upload_status = handle_uploaded_file(f, request)
             if upload_status == 'ok':
                 print "upload ok"
                 return HttpResponseRedirect('analyze')
@@ -144,6 +153,7 @@ def upload(request):
         print "upload status=", upload_status
     template = loader.get_template('tandem/upload.html')
     context = RequestContext(request,{'form':form})
+    print request.session['proj'], request.session['key']
     print "render upload"
     return HttpResponse(template.render(context))
 
@@ -154,22 +164,32 @@ def index(request):
     return render(request, 'tandem/index.html', context)
 
 def project(request):
-    run()
-    global pname, inputhome, corpushome, resultshome
+    indir, corpdir, resultdir = run()
     p = Project()
     if request.method == 'POST':
         form = ProjectForm(request.POST)
-        mystorage = FileSystemStorage()
 
         if form.is_valid():
-
+            print "form is valid"
             new_project = form.save(commit=False)
-            new_project.input_folder = inputhome
-            new_project.text_folder = corpushome
-            new_project.dest_folder = resultshome
+            new_project.input_folder = indir
+            new_project.text_folder = corpdir
+            new_project.dest_folder = resultdir
             new_project.save()
-            pname = new_project.project_name
-        return HttpResponseRedirect('upload')
+            print new_project.pk
+            request.session['proj'] = new_project.project_name
+            request.session['key'] = new_project.pk
+            context = {'new_project':new_project}
+         #   print context
+            return HttpResponseRedirect('upload')
+         #   return render(request, 'tandem/uptest.html', context)
+         #  return render(request,'tandem/upload.html',context)
+        else:
+            print "form is not valid"
+            error = "Project name is required"
+            context = RequestContext(request,{'error':error})
+            template = loader.get_template('tandem/project.html')
+            return HttpResponse(template.render(context))
     else:
         print "fresh form...start"
         form = ProjectForm()
@@ -180,7 +200,7 @@ def project(request):
   #  return render(request, 'tandem/project.html', context)
 
 def analyze(request):
-    analyzevariable = build_the_corpus()
+    analyzevariable = build_the_corpus(request)
     if analyzevariable[0] == -1:
         build = "failed"
         context = {"build": build}
@@ -190,7 +210,10 @@ def analyze(request):
     return render(request, 'tandem/analyze.html', context)
 
 def results(request):
-    global inputhome, corpushome, resultshome
+    project_key = request.session['key']
+    project = Project.objects.get(pk = project_key)
+    corpushome = project.text_folder
+    resultshome = project.dest_folder
     calculate.mainout(corpushome, resultshome)
     resultsvariable = [ f for f in os.listdir(resultshome) if os.path.isfile(os.path.join(resultshome,f)) ]
 
@@ -199,7 +222,10 @@ def results(request):
     return render(request, 'tandem/results.html', context)
 
 def download(request):
-    global pname, inputhome, corpushome, resultshome, ziphome
+    global ziphome
+    project_key = request.session['key']
+    project = Project.objects.get(pk = project_key)
+    resultshome = project.dest_folder
 #    resultsfolder = resultshome
 #    response = make_zip(resultsfolder)
 #    print 'zip ok'
