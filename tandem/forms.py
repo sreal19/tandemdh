@@ -7,7 +7,7 @@ from tandem.models import Project
 
 
 class MyUploadForm(forms.Form):
-    attachments = MultiFileField(max_num=99, min_num=1, max_file_size=1024*1024*100)
+    attachments = MultiFileField(max_num=130, min_num=1, max_file_size=1024*1024*100)
     class Media:
         css = {
             'all': ('{{ STATIC_URL }}css/TANDEMstyle.css',)

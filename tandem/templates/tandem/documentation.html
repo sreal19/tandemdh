@@ -16,13 +16,13 @@
 <html>
   <head>
      <title>TANDEM | Image & Text Analysis Environment</title>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/TANDEMstyle.css">
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/Images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index">Home</a></li>
           <li><a href="about">About</a></li>
@@ -35,17 +35,18 @@
      </nav>
 
      <div id="header">
-         <img class="logo" src="http://tandem.commons.gc.cuny.edu/files/2015/02/TANDEM-bike-logo.png" center>
+         <img class="logo" src="{{ STATIC_URL}}tandem/Images/glphys.jpg" width="450" center>
      </div>
      
      <div id="container">
       <div id="content">
-        <h1>Best Practices</h1>
+<h1>Best Practices</h1>
         <p>TANDEM is currently in its 0.5 phase, which means we're growing & testing. Below you will find some advice to get the best possible results from our application.</p>
 			<ul>
 				<li><a href="#file" class="body">Files Types & Organization</a></li>
 				<li><a href="#image" class="body">Image Quality</a></li>
 				<li><a href="#text" class="body">Text Quality</a></li>
+				<li><a href="#copyright" class="body">Complying With Copyright</a></li>
 			</ul>
 		<h2 id="file">File Types & Organization</h2>
 			<ul>
@@ -69,14 +70,21 @@
 				<li>TANDEM a has been quality tested for English language texts, and provides an output in ascii. If you analyze a corpus in another language, please double check the text output for accuracy.</li>
 				<li>Similarly, if you're corpus contains illuminated lettering (swirly, hand-drawn, or as part of an embedded image) double check the output to ensure NLTK picked up the text.</li>
 			</ul>
-		<p>If your final output looks good, <a href="team.html" class="body" target="_blank">share it with us!</a></p>
-		<p>As TANDEM grows we appreciate feedback from you, especially if it includes features we haven't fully tested yet, such as non-English texts or illuminated lettering. For additional details, see <a href="about.html#FAQ" class="body">Frequently Asked Questions</a>.</p><br /><br />
+		<h2 id="copyright">Complying With Copyright</h2>
+		<p>Copyright can be a tricky subject, especially when materials are being used for scholarship or education. The TANDEM team would like to suggest erring on the side of caution, when possible.</p>
+			<ul>
+				<li>We like you, and are glad you're using our application! But TANDEM is NOT responsible for your source material.</li>
+				<li>You are responsible for determining the copyright status of your source material. This means if you have processed scans from a book, you need to check the copyright before publishing or advertising the source files.
+					<ul>
+					<li>For instance, the files used for the TANDEM test corpus are available in the public domain, meaning that no single person holds the copyright for the material, which is how we are able to provide the <a href="sample" class="body" target="_blank">Test Corpus and Sample Data</a>.</li>
+			</ul></ul>
+			<br /><br />
       </div>
 	</div>
 		
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
       </div>
       
       </div>

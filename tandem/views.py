@@ -154,7 +154,6 @@ def upload(request):
     template = loader.get_template('tandem/upload.html')
     context = RequestContext(request,{'form':form})
     print request.session['proj'], request.session['key']
-    print "render upload"
     return HttpResponse(template.render(context))
 
 def index(request):
@@ -180,13 +179,11 @@ def project(request):
             request.session['proj'] = new_project.project_name
             request.session['key'] = new_project.pk
             context = {'new_project':new_project}
-         #   print context
             return HttpResponseRedirect('upload')
-         #   return render(request, 'tandem/uptest.html', context)
          #  return render(request,'tandem/upload.html',context)
         else:
             print "form is not valid"
-            error = "Project name is required"
+            error = "Looks like you forgot something!"
             context = RequestContext(request,{'error':error})
             template = loader.get_template('tandem/project.html')
             return HttpResponse(template.render(context))
@@ -195,9 +192,7 @@ def project(request):
         form = ProjectForm()
     template = loader.get_template('tandem/project.html')
     context = RequestContext(request,{'form':form})
-    print "render project"
     return HttpResponse(template.render(context))
-  #  return render(request, 'tandem/project.html', context)
 
 def analyze(request):
     analyzevariable = build_the_corpus(request)
@@ -206,7 +201,6 @@ def analyze(request):
         context = {"build": build}
         return render(request, 'tandem/analyze.html', context)
     context = {'analyzevariable': analyzevariable}
-    print "render analyze"
     return render(request, 'tandem/analyze.html', context)
 
 def results(request):
@@ -218,7 +212,6 @@ def results(request):
     resultsvariable = [ f for f in os.listdir(resultshome) if os.path.isfile(os.path.join(resultshome,f)) ]
 
     context = {'resultsvariable': resultsvariable}
-    print 'render results'
     return render(request, 'tandem/results.html', context)
 
 def download(request):
@@ -226,12 +219,7 @@ def download(request):
     project_key = request.session['key']
     project = Project.objects.get(pk = project_key)
     resultshome = project.dest_folder
-#    resultsfolder = resultshome
-#    response = make_zip(resultsfolder)
-#    print 'zip ok'
-#    response['Content-Disposition']= 'attachment;filename=%s.zip' %('tandem')
-#    response['Content-Type']= 'application/zip'
-#    return response
+
     shutil.make_archive(ziphome + '/tandem' + pname, 'zip', resultshome)
     filepath = ziphome + "/tandem" + pname + ".zip"
     print "creating zip at", filepath
@@ -242,24 +230,6 @@ def download(request):
    # return render(request, 'tandem/results.html',context,
    #               content_type = 'applications/zip')
     return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
-'''
-    tmpdir = tempfile.mkdtemp()
-    try:
-        tmparchive = os.path.join(tmpdir, "tandemzip")
-        root_dir = ziphome
-        data = open(shutil.make_archive(tmparchive, 'zip', root_dir), 'rb').read()
-        print type(data)
-        print len(data)
-    finally:
-        shutil.rmtree(tmpdir)
-'''
-
-
-#    print "got here"
-#    downloadvar = "Success!"
-#    context = {'downloadvar': downloadvar}
-    #return render(request, 'tandem/download.html', context)
-    #return response
 def about(request):
   #  template = loader.get_template('tandem/about.html')
     aboutvariable = "about"
@@ -270,6 +240,12 @@ def documentation(request):
     docvar = "doc"
     context = {'docvar': docvar}
     return render(request, 'tandem/documentation.html', context)
+
+def prepare(request):
+    print "render prepare"
+    prepvar = "prep"
+    context = {'prepvar': prepvar}
+    return render(request, 'tandem/prepare.html', context)
 
 def terms(request):
     termsvar ='terms'
@@ -285,3 +261,12 @@ def sample(request):
     samplevar = "sample"
     context = {'samplevar':samplevar}
     return render(request, 'tandem/sample.html', context)
+
+def datacheck(request):
+    print request.GET
+    if 'corpus' in request.GET:
+        filepath = settings.MEDIA_ROOT + "/sample/tandemout.zip"
+    else:
+        filepath = settings.MEDIA_ROOT + "/sample/tandemin.zip"
+    print "returning ", filepath
+    return serve(request, os.path.basename(filepath), os.path.dirname(filepath))

@@ -16,13 +16,13 @@
 <html>
   <head>
      <title>TANDEM | Image & Text Analysis Environment</title>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/TANDEMstyle.css">
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tadnem/Images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index">Home</a></li>
           <li><a href="about">About</a></li>
@@ -35,19 +35,69 @@
      </nav>
 
      <div id="header">
-         <img class="logo" src="http://tandem.commons.gc.cuny.edu/files/2015/02/TANDEM-bike-logo.png" center>
+         <img class="logo" src="{{ STATIC_URL}}tandem/Images/glphys.jpg" width="450" center>
      </div>
      
      <div id="container">
       <div id="content">
-        <h1>Terms of Use</h1>
-        <p>words</p>
+        <h1>Open Source Sharing</h1>
+        <p>TANDEM was built by incorporating existing Open Source programs within a Python and Django framework. If you want to learn more about how TANDEM was built -- or if you want to use any of our code -- please review the information provided below. </p>
+        <p>TANDEM encourages its users continued explorations into the digital world, providing that the Terms & Licensing are followed, as documented below.
+        <h2>Terms & Licensing:</h2>
+        	<ul>
+				<li><a href="#tandem" class="body">TANDEM</a></li>
+				<li><a href="#nltk" class="body">NLTK</a></li>
+				<li><a href="#opencv" class="body">OpenCV</a></li>
+				<li><a href="#ocr" class="body">Tesseract OCR</a></li>
+			</ul>
+		<h2 id="tandem">TANDEM Terms</h2>
+		<h4>Licensing</h4>
+			<ul>
+				<li>We at TANDEM are super grateful for the technology we’ve been able to incorporate into our app. As a result have also made TANDEM available Open Source with the <a href="https://creativecommons.org/licenses/by/4.0/" class="body" target="_blank">Creative Commons Attribution 4.0 International License</a> (CC BY), available on GitHub.</li>
+					<ul>
+				<li>CC BY allows others distribute, remix, tweak, and build upon work - even commercially - as long as they give credit for the original creation.</li> </ul>
+			</ul>
+		<h4>User-Generated Content</h4>
+			<ul>
+				<li>All data outputs produced by TANDEM belong to you, and only you can determine how to distribute your own data. </li>
+				<li>Any final research made with a TANDEM data output is yours and yours alone (be we encourage you to look into Open Access and Creative Commons Licenses).</li>
+				<li>If you decide to share your data for the TANDEM website, your dataset(s) would be shared with the <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="body" target="_blank">Creative Commons Universal 1.0 Public Domain Dedication (CC 0)</a>.</li>
+			</ul>
+		<h4>Source Material</h4>
+			<ul>
+				<li>Because the functionality of TANDEM relies on user-generated content, we require that you be responsible for obtaining necessary permissions for the image content uploaded to the platform.</li>
+				<li>We are TANDEM are NOT lawyers,  but here's our best advice for source material:
+			<ul>
+				<li>If you are interested in obtaining source material in the public domain, consider searching for content in the public domain on <a href="http://www.hathitrust.org/" class="body" target="_blank">HathiTrust</a>. 
+				<li>Obtaining source content in the public domain will allow you the ability to freely publish or advertise your source material and any datasets. 
+				<li>Content not in the public domain will require obtaining permissions before distributing or publishing your material.</li>
+			</ul></ul>
+		<h2 id="nltk">NLTK Terms</h2>
+			<p>Natural Language Toolkit (NLTK) is open source software available on <a href="https://github.com/nltk/nltk" class="body" target="_blank">GitHub</a>, distributed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" class="body" target="_blank">Apache License Version 2.0</a>
+				<ul>
+				<li>Documentation for NLTK is distributed under the <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/" class="body" target="_blank">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 United States license</a>.</li> 
+				<li>The corpora are distributed under various licenses, as documented in their respective README files on <a href="https://github.com/nltk/nltk" class="body" target="_blank">GitHub</a>.</li>
+				</ul>
+		<h2 id="opencv">OpenCV Terms</h2>
+			<p>Open Source Computer Vision (OpenCV) is free to use under the <a href="http://opencv.org/license.html" class="body" target="_blank">3-clause BSD License</a> and available on <a href="https://github.com/Itseez/opencv" class="body" target="_blank">GitHub</a>.
+			<br />Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+			<ul>
+				<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+				<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+				<li>Neither the names of the copyright holders nor the names of the contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+			</ul>
+			<p>This software is provided by the copyright holders and contributors “as is” and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall copyright holders or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.</p>
+		<h2 id="ocr">Tesseract OCR Terms</h2>
+			<p>Tesseract OCR  is open source software distributed under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0" class="body" target="_blank">Apache License Version 2.0</a>.</p>
+			<ul>
+				<li>More information on Tesseract OCR can be found on <a href="https://code.google.com/p/tesseract-ocr/" class="body" target="_blank">Google Project Hosting</a>.</li>
+			<br />
       </div>
 	</div>
 		
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
       </div>
       
       </div>

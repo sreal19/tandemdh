@@ -16,13 +16,13 @@
 <html>
   <head>
      <title>TANDEM | Image & Text Analysis Environment</title>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/TANDEMstyle.css">
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URLpython }}tandem/Images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index">Home</a></li>
           <li><a href="about">About</a></li>
@@ -35,7 +35,7 @@
      </nav>
 
      <div id="header">
-         <img class="logo" src="http://tandem.commons.gc.cuny.edu/files/2015/02/TANDEM-bike-logo.png" center>
+         <img class="logo" src="{{ STATIC_URL}}tandem/Images/glphys.jpg" width="450" center>
      </div>
      
      <div id="container">
@@ -45,7 +45,7 @@
 			<li><a href="#about" class="body">About the app</a></li>
 			<li><a href="#FAQ" class="body">Frequently Asked Questions</a>
 				<ul>
-					<li><a href="#Why" class="body">Why use TANDEM?</a></li>
+					<li><a href="#Why" class="body">What does TANDEM solve?</a></li>
 					<li><a href="#built" class="body">How was TANDEM built?</a></li>
 					<li><a href="#components" class="body">What are the components of TANDEM?</a></li>
 					<li><a href="#definitions" class="body">I've downloaded my data output. What does each column in the CSV represent?</a></li>
@@ -59,18 +59,18 @@
 		<p>To explore the functionality of TANDEM, our team employed a test corpus of Mother Goose picture books in the public domain. To view the source and results from the initial corpus, see: <a href="#" class="body" target="_blank">Sample Data.</a></p>
 		<p>TANDEM intends to provide scholars a singular source for quantitative insight into picture books, comics, illuminated manuscripts, and other sources that might contain both image and overlaid text. That said, this application was built so that anyone can be free to use and explore this tool.</p>	
 		<h2 id="FAQ">Frequently Asked Questions</h2>
-		<h3 id="Why">Why use TANDEM?</h3>
-		<p>TANDEM was built to make the process of acquiring multimodal data from text and image content easier. With that said, we recommend that you take a look at what each element of TANDEM does in order to be a fully informed and aware user.</p>
+		<h3 id="Why">What does TANDEM solve?</h3>
+		<p>TANDEM was built to make the process of acquiring multimodal data from text and image content easier.</p>
 		<h3 id="built">How was TANDEM built?</h3>
-		<p>Blood, sweat, and a few tears. Actually, the TANDEM team used Python to wrap Tesseract OCR, NLTK, and OpenCV into a single, streamlined Django application. Previously such an multi-pronged analysis would have required each program to be run individually through the command line.</p>
+		<p>The TANDEM team used Python to wrap Tesseract OCR, NLTK, and OpenCV into a single, streamlined Django application. Previously such an multi-pronged analysis would have required each program to be run individually through the command line.</p>
 		<h3 id="components">What are the components of TANDEM?</h3>
 		<ul>
-		<li><h4 id="Tesseract"><strong>Tesseract OCR</strong></h4></li>
-		<p>Tesseract OCR is an optical character recognition engine, sponsored by Google since 2006. Tesseract can read a wide variety of image formats and convert them to text in over 60 languages. <a href="https://code.google.com/p/tesseract-ocr/" class="body" target="_blank">Read more about Tesseract OCR</a>.</p>
 		<li><h4 id="NLTK"><strong>NLTK</strong></h4></li>
 		<p>NLTK stands for the Natural Language Toolkit. It is a free, open source, community-driven project which contains a suite of libraries and programs for symbolic and statistical natural language processing (NLP) for the Python programming language. Such libraries include: Lexical analysis: Word and text tokenizer, n-gram and collocations, part-of-speech tagging, and named-entity recognition. <a href="http://www.nltk.org/" class="body" target="_blank">Learn more about NLTK</a>.</p>
 		<li><h4 id="Open"><strong>Open CV</strong></h4></li>
 		<p>OpenCV stands for Open Source Computer Vision and focuses on real-time image processing. The OpenCV library has more than 2500 optimized algorithms, which can be used to detect and recognize faces, identify objects, classify human actions in videos, track camera movements, track moving objects, find similar images from an image database, follow eye movements, recognize scenery and establish markers to overlay it with augmented reality, and more. <a href="http://opencv.org/" class="body" target="_blank">Learn more about Open CV</a>.</p>
+	    <li><h4 id="Tesseract"><strong>Tesseract OCR</strong></h4></li>
+		<p>Tesseract OCR is an optical character recognition engine, sponsored by Google since 2006. Tesseract can read a wide variety of image formats and convert them to text in over 60 languages. <a href="https://code.google.com/p/tesseract-ocr/" class="body" target="_blank">Read more about Tesseract OCR</a>.</p>
 	    </ul>
 		<h3 id="definitions">I've downloaded my data output. What does each column in the CSV represent?</h3>
 		<table class="table">
@@ -159,8 +159,8 @@
 		
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
-	  </div>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
+      </div>
       
       </div>
   </body>

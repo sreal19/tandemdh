@@ -16,13 +16,13 @@
 <html>
   <head>
      <title>TANDEM | Image & Text Analysis Environment</title>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/TANDEMstyle.css">
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/Images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index">Home</a></li>
           <li><a href="about">About</a></li>
@@ -36,14 +36,14 @@
 
 	<div id="container">
       <div id="process">
-      
-      <html>
+		<html>
 		<body>
 			<h1>Download Your Data</h1>
-			<p>In the next steps we will provide some tips & tricks on using the data output, but for now go ahead and download.<br />Note: TANDEM cannot currently store output files after processing.</p>
+			<br />
+			<p>The files you submitted have now been analyzed and are available as a data download. <br />Note: TANDEM cannot store data output files after processing.</p>
 			<form action="{% url 'results'%}" method="get">
 				<div id="btns">
-				<a href="download" class="btn">Download</a>
+				<p align="center"><a href="download" class="btn">Download</a></p>
 				</div>
 			</form>
 		</div>
@@ -52,7 +52,7 @@
 	
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
       </div>
       
       </div>

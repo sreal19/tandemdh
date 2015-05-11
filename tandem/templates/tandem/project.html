@@ -10,7 +10,8 @@
 <title>TANDEM</title>
  
 <!-- Bootstrap --><!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{{ STATIC_URL }}/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+ 
 <!-- Optional theme -->
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-theme.min.css">
 
@@ -23,7 +24,7 @@
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index">Home</a></li>
           <li><a href="about">About</a></li>
@@ -39,30 +40,29 @@
       <div id="process">
 		<html>
 			<body>
-               <h1>Define your Project</h1>
+                <h1>Name Your Project</h1>
+				<br />
 <!-------------I need to add this section to capture the project persistent data------------------>
                     <form action="/project/" method="post">
                         {% csrf_token %}
                         <label for="project_name">Project Name: </label>
                         <input id="project_name" type="text" name="project_name" maxlength="200"><br>
-                        {% if error %}
-                            {{ error }}
-                        {% endif %}
-                        <p><input type="submit" value="OK, I'm Ready" class="btn" id="Save" /></p>
+						<br />
+						{% if error %}
+							{{error}}
+						{% endif %}
+                        <p align="center"><input type="submit" value="Submit" class="btn" id="Save" /></p>
                     </form>
 <!-------------End inserted code------------------------------------------------------------------>
-
-				<h1 align="center">Prepare Your Files</h1>
-		<p align="center">In order to get the best possible results from TANDEM, make sure that your files are in proper order: <br /><li>If you have more than one file to analyze, make sure they are named sequentially</li><li>Have your files saved as PDF, JPEG, or TIFF</li><li>For additional details, consult <a href="documentation.html" class="body" target="_blank">Best Practices</a></li></p>
-
 			</body>
 		</html>
+		
       </div>
 	</div>
 	
 	  <div id="footer">
-          <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+          <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
       </div>
 
      </div>

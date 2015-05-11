@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TANDEM</title>
 
-
 <!-- Bootstrap --><!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
  
@@ -18,13 +17,13 @@
   <head>
      <title>TANDEM | Image & Text Analysis Environment</title>
 
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/TANDEMstyle.css">
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/Images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index">Home</a></li>
           <li><a href="about">About</a></li>
@@ -41,7 +40,8 @@
 	<html>
     <body>
         <h1>Upload to TANDEM</h1>
-        <p>Pro tip: If you have more than 1 file, select them all.</p>
+		<br />
+        <p>Pro-tip: If you have more than 1 file, select them all.</p>
 		<br />
         <!-- Upload form. Note enctype attribute! -->
         <form action="/upload/" method="post" enctype="multipart/form-data">
@@ -50,9 +50,8 @@
             <table>
                 {{ form.as_table }}
             </table>
-             <p><input type="submit" value="Upload" id="Save" class="btn" /></p>
+             <p align="center"><input type="submit" value="Upload" id="Save" class="btn" /></p>
         <!-- End of forms.py logic-->
-
         </form>
     {{ new_project }}
     </body>
@@ -62,7 +61,7 @@
 	
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
       </div>
       
       </div>

@@ -16,13 +16,13 @@
 <html>
   <head>
      <title>TANDEM | Image & Text Analysis Environment</title>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/TANDEMstyle.css">
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/Images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="index">Home</a></li>
           <li><a href="about">About</a></li>
@@ -35,24 +35,49 @@
      </nav>
 
      <div id="header">
-         <img class="logo" src="{{ STATIC_URL }}tandem/Images/TANDEM-bike-logo.png" center>
+         <img class="logo" src="{{ STATIC_URL}}tandem/Images/glphys.jpg" width="450" center>
      </div>
 
 	<div id="container">
       <div id="content">
         <h1>Team</h1>
+		<br />
+		<div class="row">
+			<div class="col-md-2">
+				<img src="{{ STATIC_URL }}tandem/Images/KBphoto.jpg" class="thumbnail" width="100">
+			</div>
+			<div class="col-md-3">
+				<p>Kelly Blanchat<br />UX & Designer<br /><a href="mailto:kelly.blanchat@gmail.com?Subject=" target="_top" class="body">kelly.blanchat@gmail.com</a></p>
+			</div>
+			<div class="col-md-2">
+				<img src="{{ STATIC_URL }}tandem/Images/JKphoto.jpg" class="thumbnail" width="100">
+			</div>
+			<div class="col-md-2">
+				<p>Jojo Karlin<br />Outreach Coordinator<br /><a href="mailto:jojo.karlin@gmail.com?Subject=" target="_top" class="body">jojo.karlin@gmail.com</a></p>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2">
+				<img src="{{ STATIC_URL }}tandem/Images/SRphoto.jpg" class="thumbnail" width="100">
+			</div>
+			<div class="col-md-3">
+				<p>Stephen Real<br />Programmer<br /><a href="mailto:sbrnlb@gmail.com?Subject=" target="_top" class="body">sbrnlb@gmail.com</a></p>
+			</div>
+			<div class="col-md-2">
+				<img src="{{ STATIC_URL }}tandem/Images/CVphoto.jpg" class="thumbnail" width="100">
+			</div>
+			<div class="col-md-2">
+				<p>Chris Vitale<br />Project Manager<br /><a href="mailto:cvitale@gradcenter.cuny.edu?Subject=" target="_top" class="body">cvitale@gmail.com</a></p>
+			</div>
+		</div>
 
-        <p><strong>Jojo Karlin</strong> / Outreach Coordinator<br /><a href="mailto:jojo.karlin@gmail.com?Subject="target="_top" class="body">jojo.karlin@gmail.com</a></p>
-        <p><strong>Kelly Blanchat</strong> / UX & Designer<br /><a href="mailto:kelly.blanchat@gmail.com?Subject="target="_top" class="body">kelly.blanchat@gmail.com</a></p>
-        <p><strong>Stephen Real</strong> / Programmer<br /><a href="mailto:sbrnlb@gmail.com?Subject="target="_top" class="body">sbrnlb@gmail.com</a></p>
-        <p><strong>Christopher Vitale</strong> / Project Manager<br /><a href="mailto:cvitale@gradcenter.cuny.edu?Subject="target="_top" class="body">cvitale@gradcenter.cuny.edu</a></p>
-      <br/ ><br/>
 	  </div>
 	</div>
 	
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
       </div>
       
       </div>

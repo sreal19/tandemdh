@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^tandem/', include('tandem.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'index/$',views.index, name='index'),
+    url(r'prepare/$',views.prepare, name='prepare'),
+    url(r'datacheck/$',views.datacheck, name='datacheck'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

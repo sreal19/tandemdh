@@ -16,36 +16,38 @@
 <html>
   <head>
      <title>TANDEM | Image & Text Analysis Environment</title>
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/TANDEMstyle.css">
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
      <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
      <nav>
       <div class="nav-wrapper">
-        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/Images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="documentation.html">Best Practices</a></li>
-		  <li><a href="sample.html">Sample Data</a></li>
-          <li><a href="terms.html">Terms of Use</a></li>
-          <li><a href="team.html">Contact</a></li>
+          <li><a href="index">Home</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="documentation">Best Practices</a></li>
+		  <li><a href="sample">Sample Data</a></li>
+          <li><a href="terms">Terms of Use</a></li>
+          <li><a href="team">Contact</a></li>
          </ul>
       </div>
      </nav>
 
 	<div id="container">
       <div id="process">
-<html>
-	<body>
-		<h1>Upload Complete</h1>
-		<p>Your files have been successfully uploaded to TANDEM and are ready to be analyzed.</p>
-		<br />
-		<form action="{% url 'results'%}" method="get">
-            <div id="btns">
-            <a href="results" class="btn">Analyze</a>
-            <div>
+		<html>
+		<body>
+			<h1>Upload Complete</h1>
+			<br />
+			<p>Your files have been successfully uploaded to TANDEM and are ready to be analyzed.</p>
+			<br />
+			<form action="{% url 'results'%}" method="get">
+				<div id="btns">
+				<p align="center"><a href="results" class="btn">Analyze</a></p>
+            </div>
         </form>
+		
 	</div>
 	</div>
 	</body>
@@ -53,7 +55,7 @@
 
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms.html" target="_blank">Terms of Use</a></p>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
       </div>
       
       </div>
