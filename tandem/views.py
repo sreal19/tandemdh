@@ -265,8 +265,8 @@ def sample(request):
 def datacheck(request):
     print request.GET
     if 'corpus' in request.GET:
-        filepath = settings.MEDIA_ROOT + "/sample/tandemout.zip"
+        filepath = settings.MEDIA_ROOT + "sample/tandemout.zip"
     else:
-        filepath = settings.MEDIA_ROOT + "/sample/tandemin.zip"
+        filepath = settings.MEDIA_ROOT + "sample/tandemin.zip"
     print "returning ", filepath
     return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
