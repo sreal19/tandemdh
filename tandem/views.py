@@ -264,7 +264,7 @@ def sample(request):
 
 def datacheck(request):
     print request.GET
-    if 'corpus' in request.GET:
+    if 'results' in request.GET:
         filepath = settings.MEDIA_ROOT + "sample/tandemout.zip"
     else:
         filepath = settings.MEDIA_ROOT + "sample/tandemin.zip"
