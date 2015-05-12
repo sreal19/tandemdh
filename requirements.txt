@@ -1,0 +1,6 @@
+Django==1.7.7
+nltk==3.0.1
+numpy==1.9.1
+pdfminer==20140328
+Pillow==2.7.0
+pytesseract==0.1.5
