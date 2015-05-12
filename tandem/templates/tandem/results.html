@@ -33,19 +33,27 @@
          </ul>
       </div>
      </nav>
-
+	 
+     <div id="header">
+         <img class="logo" src="{{ STATIC_URL}}tandem/Images/glphys.jpg" width="450" center>
+     </div>	 
 	<div id="container">
-      <div id="process">
-		<html>
+      <div id="content">      
+      <html>
 		<body>
-			<h1>Download Your Data</h1>
+			<h1 align="center">Success!</h1>
 			<br />
-			<p>The files you submitted have now been analyzed and are available as a data download. <br />Note: TANDEM cannot store data output files after processing.</p>
+			<p>The files you submitted have now been analyzed and are available as a data download. From your original file upload, TANDEM has generated data for Text Recognition, Natural Language Processing, and Image Feature Extraction.</p>
 			<form action="{% url 'results'%}" method="get">
 				<div id="btns">
 				<p align="center"><a href="download" class="btn">Download</a></p>
 				</div>
 			</form>
+			<br />
+			<h3>Understanding the Data</h3>
+			<p>Need help contextualizing your CSV download? No problem! Take a look at the <a href="about.html#definitions" class="body" target="_blank">data definitions</a> that we've included in our Frequently Asked Questions.
+			<br />For sample data visualizations, take a look at <a href="sample.html#usingdata" class="body" target="_blank">Using the Data</a> on the <a href="sample.html" class="body" target="_blank">Sample Data</a> page.
+			<br />Otherwise, if your final output looks good, <a href="team.html" class="body" target="_blank">share it with us!</a></p>
 		</div>
 		</body>
 		</html>
