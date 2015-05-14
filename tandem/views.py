@@ -14,7 +14,7 @@ from cStringIO import StringIO
 
 from .forms import MyUploadForm, ProjectForm
 
-import buildcorpus, calculate
+#import buildcorpus, calculate
 from TandemDH import settings
 from tandem.models import Project
 #from tandem import startup

@@ -65,7 +65,7 @@ WSGI_APPLICATION = 'TandemDH.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'/home/sbr/data/tandem2.sqlite3'),
+        'NAME': os.path.join(BASE_DIR,'tandem2.sqlite3'),
     }
 }
 # Internationalization
