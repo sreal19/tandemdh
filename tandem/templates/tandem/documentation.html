@@ -24,12 +24,12 @@
       <div class="nav-wrapper">
         <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="index">Home</a></li>
-          <li><a href="about">About</a></li>
-          <li><a href="documentation">Best Practices</a></li>
-		  <li><a href="sample">Sample Data</a></li>
-          <li><a href="terms">Terms of Use</a></li>
-          <li><a href="team">Contact</a></li>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'documentation' %}">Best Practices</a></li>
+          <li><a href="{% url 'sample' %}">Sample Data</a></li>
+          <li><a href="{% url 'terms' %}">Terms of Use</a></li>
+          <li><a href="{% url 'team' %}">Contact</a></li>
          </ul>
       </div>
      </nav>
@@ -76,7 +76,7 @@
 				<li>We like you, and are glad you're using our application! But TANDEM is NOT responsible for your source material.</li>
 				<li>You are responsible for determining the copyright status of your source material. This means if you have processed scans from a book, you need to check the copyright before publishing or advertising the source files.
 					<ul>
-					<li>For instance, the files used for the TANDEM test corpus are available in the public domain, meaning that no single person holds the copyright for the material, which is how we are able to provide the <a href="sample" class="body" target="_blank">Test Corpus and Sample Data</a>.</li>
+					<li>For instance, the files used for the TANDEM test corpus are available in the public domain, meaning that no single person holds the copyright for the material, which is how we are able to provide the <a href="{ url = 'sample' %}" class="body" target="_blank">Test Corpus and Sample Data</a>.</li>
 			</ul></ul>
 			<br /><br />
       </div>
