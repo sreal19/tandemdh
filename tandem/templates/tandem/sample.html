@@ -24,12 +24,13 @@
       <div class="nav-wrapper">
         <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="index">Home</a></li>
-          <li><a href="about">About</a></li>
-          <li><a href="documentation">Best Practices</a></li>
-		  <li><a href="sample">Sample Data</a></li>
-          <li><a href="terms">Terms of Use</a></li>
-          <li><a href="team">Contact</a></li>
+           <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'documentation' %}">Best Practices</a></li>
+          <li><a href="{% url 'sample' %}">Sample Data</a></li>
+          <li><a href="{% url 'terms' %}">Terms of Use</a></li>
+          <li><a href="{% url 'team' %}">Contact</a></li>
+
          </ul>
       </div>
      </nav>
@@ -76,23 +77,23 @@
 			<h3>Excel</h3>
 		<div class="row">
 		<div class="col-md-4">
-			<a href="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" alt="The Real Mother Goose, page 2"></a>
+			<a href="{{ STATIC_URL }}tandem/Images/MG_RGBvsWordCount_Excel.png" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/MG_RGBvsWordCount_Excel.png" target="_blank" alt="The Real Mother Goose, page 2"></a>
 			<p align="center">[click to enlarge]</p>
 		</div>
 		<div class="col-xs-8">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-			<p>Data columns used for this visualization: X, X, X</p>
+			<p>Microsoft Excel is a proprietary platform that allows for quick and simple data manipulation. Google Sheets is a free alternative to Excel, but many people have a general familiarity with this tool. You can begin by using the built in charting functionality to select and visualize the tandemmain.csv. We have found that TANDEM data works well as bar charts, line charts, and circle graphs, but exploring other visualization styles in Excel will yield new and interesting perspectives. Your charts can be as simple or complex as you wish depending on the variables you’re interested. This image is a simple example of what can be done with Excel.</p>
+			<p>Data columns used for this visualization: Mean R, Mean G, Mean B, Total Word Count</p>
 		</div>
 		</div>
 			
 			<h3>Gephi</h3>
 		<div class="row">
 		<div class="col-xs-8">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-			<p>Data fields used for this visualization: X, X, X</p>
+			<p>Gephi is a visualization environment that allows you to create complex network diagrams. The diagrams are both interactive and dynamic, reacting to user input or manipulation. Gephi makes it possible for you to find associations between objets as well as an understanding of the density or clustering of similar values. Use gephi to find connections in your data.</p>
+			<p>Show us what you've made with Gephi.</p>
 		</div>
 		<div class="col-md-4">
-			<a href="images/viz_tmp.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" alt="The Real Mother Goose, page 2"></a>
+			<a href="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" alt="The Real Mother Goose, page 2"></a>
 			<p align="center">[click to enlarge]</p>
 		</div>
 		</div>
@@ -100,23 +101,23 @@
 			<h3>Wordle</h3>
 		<div class="row">
 		<div class="col-md-4">
-			<a href="images/viz_tmp.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" alt="The Real Mother Goose, page 2"></a>
+			<a href="{{ STATIC_URL }}tandem/Images/MG_Wordle_AllTextNoStopword_WordFrequency.tiff" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/MG_Wordle_AllTextNoStopword_WordFrequency.tiff" target="_blank" alt="The Real Mother Goose, page 2"></a>
 			<p align="center">[click to enlarge]</p>
 		</div>
 		<div class="col-xs-8">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-			<p>Data columns used for this visualization: X, X, X</p>
+			<p>Wordle is a free online platform that allows you to create visualizations based word frequency. Using either the TandemAllText_allwords.csv or one of the page specific all_words/unique_words.csv’s, copy and paste all rows of data into Wordle. The platform will generate a word cloud. The larger the word, the more frequent it has occurred in the text. This is a common practice for text analysis and has become more mainstream thanks to platforms like this. *Java is required in order to run Wordle, but there are many word cloud alternatives emerging that achieve a similar result.</p>
+			<p>Data columns used for this visualization: TandemAllText_allwords.csv</p>
 		</div>
 		</div>
 		
 			<h3>R</h3>
 		<div class="row">
 		<div class="col-xs-8">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-			<p>Data columns used for this visualization: X, X, X</p>
+			<p>R is a programming language used for statistical analysis and visualization. R has a diverse array of libraries built for graphics and data manipulation. This is the a highly versatile but alsos complex environments for those looking to explore the data created by our tool.</p>
+			<p>Data columns used for this visualization: Mean R, Word Frequency</p>
 		</div>
 		<div class="col-md-4">
-			<a href="images/R-viz_TANDEM.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/R-viz_TANDEM.jpg" target="_blank" alt="Histogram of Mean value R"></a>
+			<a href="{{ STATIC_URL }}tandem/Images/R-viz_TANDEM.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/R-viz_TANDEM.jpg" target="_blank" alt="Histogram of Mean value R"></a>
 			<p align="center">[click to enlarge]</p>
       	<br />
       	<br />
@@ -127,7 +128,7 @@
 		
 	  <div id="footer">
           <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
-          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="{% url 'terms' %}" target="_blank">Terms of Use</a></p>
       </div>
       
       </div>
