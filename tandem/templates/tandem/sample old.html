@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TANDEM</title>
+ 
+<!-- Bootstrap --><!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+ 
+<!-- Optional theme -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-theme.min.css">
+
+<html>
+  <head>
+     <title>TANDEM | Image & Text Analysis Environment</title>
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/TANDEMstyle.css">
+     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+     <nav>
+      <div class="nav-wrapper">
+        <object class="white_logo" type="image/svg+xml" data="{{ STATIC_URL }}tandem/images/TANDEM_WhiteLogo.svg" align="left"></object>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'documentation' %}">Best Practices</a></li>
+          <li><a href="{% url 'sample' %}">Sample Data</a></li>
+          <li><a href="{% url 'terms' %}">Terms of Use</a></li>
+          <li><a href="{% url 'team' %}">Contact</a></li>
+         </ul>
+      </div>
+     </nav>
+
+     <div id="header">
+         <img class="logo" src="{{ STATIC_URL}}tandem/Images/TANDEM-bike-logo.png" width="450" center>
+     </div>
+     
+     <div id="container">
+      <div id="content">
+		<h1>Sample Data</h1>
+			<p>The TANDEM team used a test corpus to develop the application's functionality. The corpus, <a href="http://catalog.hathitrust.org/Record/012192495" class="body" target="_blank">The Real Mother Goose by Blanch Fisher Wright (c1916)</a>, is a children's book in the public domain. As a result, we are to provide the content here as a learning tool.</p>
+			<p>To explore the functionality of TANDEM either download the full corpus (JPEGs) to run your own analysis in the app, or download our pre-processed CSV data output.</p>
+			<form action="{%  url 'datacheck' %}" method="get" >
+				<p align="center"><input type="submit" class="btn" name="corpus" value="Download Test Corpus">&nbsp;&nbsp;<input type="submit" class="btn" name="results" value="Download Test Results"></p>
+			</form>
+			<br />
+<div class="row">
+  <div class="col-xs-6 col-md-3">
+    <a href="{{ STATIC_URL }}images/MG_002.jpg" target="_blank" class="thumbnail">
+      <img src="{{ STATIC_URL }}tandem/Images/MG_002.jpg" target="_blank" alt="The Real Mother Goose, page 2">
+    </a>
+</div>
+  <div class="col-xs-6 col-md-3">
+    <a href="{{ STATIC_URL }}tandem/Images/MG_011.jpg" target="_blank" class="thumbnail">
+      <img src="{{ STATIC_URL }}tandem/Images/MG_011.jpg" target="_blank" alt="The Real Mother Goose, page 11">
+    </a>
+</div>
+  <div class="col-xs-6 col-md-3">
+    <a href="{{ STATIC_URL }}tandem/Images/MG_012.jpg" target="_blank" class="thumbnail">
+      <img src="{{ STATIC_URL }}tandem/Images/MG_012.jpg" target="_blank" alt="The Real Mother Goose, page 12">
+    </a>
+</div>
+  <div class="col-xs-6 col-md-3">
+    <a href="tandem/Images/MG_013.jpg" target="_blank" class="thumbnail">
+      <img src="{{ STATIC_URL }}tandem/Images/MG_013.jpg" target="_blank" alt="The Real Mother Goose, page 2">
+    </a>
+</div>
+</div>
+			<h2 id="usingdata">Using the Data</h2>
+			<p>Creating a visualization can often help to contextualize meaning. Data visualizations can be created with a range of tools and in varying complexities. For instance, you can make a visualization that is as simple as a pie chart or a timeline with Microsoft Excel, or you can use a programming language to create something interactive.</p>
+			<p>Below we have provided examples of how to use the TANDEM data output for various visualization programs.</p>
+			
+			<h3>Excel</h3>
+		<div class="row">
+		<div class="col-md-4">
+			<a href="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" alt="The Real Mother Goose, page 2"></a>
+			<p align="center">[click to enlarge]</p>
+		</div>
+		<div class="col-xs-8">
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+			<p>Data columns used for this visualization: X, X, X</p>
+		</div>
+		</div>
+			
+			<h3>Gephi</h3>
+		<div class="row">
+		<div class="col-xs-8">
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+			<p>Data fields used for this visualization: X, X, X</p>
+		</div>
+		<div class="col-md-4">
+			<a href="images/viz_tmp.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" alt="The Real Mother Goose, page 2"></a>
+			<p align="center">[click to enlarge]</p>
+		</div>
+		</div>
+		
+			<h3>Wordle</h3>
+		<div class="row">
+		<div class="col-md-4">
+			<a href="images/viz_tmp.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/viz_tmp.jpg" target="_blank" alt="The Real Mother Goose, page 2"></a>
+			<p align="center">[click to enlarge]</p>
+		</div>
+		<div class="col-xs-8">
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+			<p>Data columns used for this visualization: X, X, X</p>
+		</div>
+		</div>
+		
+			<h3>R</h3>
+		<div class="row">
+		<div class="col-xs-8">
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+			<p>Data columns used for this visualization: X, X, X</p>
+		</div>
+		<div class="col-md-4">
+			<a href="images/R-viz_TANDEM.jpg" target="_blank" class="thumbnail"><img src="{{ STATIC_URL }}tandem/Images/R-viz_TANDEM.jpg" target="_blank" alt="Histogram of Mean value R"></a>
+			<p align="center">[click to enlarge]</p>
+      	<br />
+      	<br />
+      	<br />
+      	<br />
+      </div>
+	</div>
+		
+	  <div id="footer">
+          <p class="footertext"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/cc.large.png" width="45" alt="Creative Commons logo"><a href="https://twitter.com/dhtandem" target="_blank"><img src="{{ STATIC_URL }}tandem/Images/twitter1.gif" width="50" alt="logo icon"></a>
+          <br />TANDEM is licensed under a Creative Commons-Attribution 4.0 International License. See: <a href="terms" target="_blank">Terms of Use</a></p>
+      </div>
+      
+      </div>
+  </body>
+</html>
